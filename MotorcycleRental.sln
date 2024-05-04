@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRental.Applicatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRental.API", "MotorcycleRental.API\MotorcycleRental.API.csproj", "{F0F46C0F-D011-4E67-B717-274083D8266B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorcycleRental.Infrastructure", "MotorcycleRental.Infrastructure\MotorcycleRental.Infrastructure.csproj", "{5A2247CD-6DEB-4BF5-A0A2-A05AA792E40B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRental.Infrastructure", "MotorcycleRental.Infrastructure\MotorcycleRental.Infrastructure.csproj", "{5A2247CD-6DEB-4BF5-A0A2-A05AA792E40B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{16951B5C-E291-40DF-B9D6-842D8788E5D7}"
+	ProjectSection(SolutionItems) = preProject
+		.env = .env
+		docker-compose.yaml = docker-compose.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
