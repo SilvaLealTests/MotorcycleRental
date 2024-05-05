@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MotorcycleRental.Infrastructure.Migrations
 {
     [DbContext(typeof(MotorcycleRentalDbContext))]
-    [Migration("20240503225509_Init")]
+    [Migration("20240504091441_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -167,11 +167,13 @@ namespace MotorcycleRental.Infrastructure.Migrations
 
                     b.Property<string>("LicensePlate")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
 
                     b.Property<string>("Model")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<int>("Year")
                         .HasColumnType("integer");

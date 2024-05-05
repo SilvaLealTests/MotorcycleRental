@@ -64,8 +64,8 @@ namespace MotorcycleRental.Infrastructure.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Year = table.Column<int>(type: "integer", nullable: false),
-                    Model = table.Column<string>(type: "text", nullable: false),
-                    LicensePlate = table.Column<string>(type: "text", nullable: false)
+                    Model = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    LicensePlate = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false)
                 },
                 constraints: table =>
                 {

@@ -16,6 +16,16 @@ internal class MotorcycleRentalDbContext(DbContextOptions<MotorcycleRentalDbCont
     {
         base.OnModelCreating(modelBuilder);
 
+        //**modelBuilder.Entity<Motorcycle>(entity =>
+        //{
+        //    entity.HasKey(e => e.Id);
+        //    entity.Property(e => e.Id).ValueGeneratedOnAdd();
+        //    entity.Property(e => e.Year).IsRequired();
+        //    entity.Property(e => e.LicensePlate).IsRequired();
+        //    entity.Property(e => e.Model).IsRequired();
+        //}
+        //); 
+
         modelBuilder.Entity<User>()
             .OwnsOne(u => u.Biker);
 

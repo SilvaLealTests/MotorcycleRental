@@ -1,31 +1,47 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycles;
+using MotorcycleRental.Application.Motorcycles.Queries.GetAllMotorcycles;
+using MotorcycleRental.Application.Motorcycles.Queries.GetMotorcycleById;
 
 namespace MotorcycleRental.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class MotorcycleController : ControllerBase
+    public class MotorcycleController(IMediator mediator) : ControllerBase
     {
         // GET: api/<MotorcycleController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> GetAll()
         {
-            return new string[] { "value1", "value2" };
+
+            var motorcycles = await mediator.Send(new GetAllMotorcyclesQuery());
+
+            return Ok(motorcycles);
         }
 
         // GET api/<MotorcycleController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult> GetById(int id)
         {
-            return "value";
+            var motorcycle = await mediator.Send(new GetMotorcycleByIdQuery()
+            {
+                Id = id
+            }
+            );
+
+            return Ok(motorcycle);
         }
 
         // POST api/<MotorcycleController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] CreateMotorcyclesCommand command)
         {
+            int id = await mediator.Send(command);
+
+            return CreatedAtAction(nameof(GetById), new { id }, null);
         }
 
         // PUT api/<MotorcycleController>/5
