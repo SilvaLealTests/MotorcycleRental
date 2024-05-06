@@ -16,6 +16,8 @@ namespace MotorcycleRental.Infrastructure.Repositories
 
         Task SaveChanges();
 
-        Task<(IEnumerable<Motorcycle>, int)> GetAllMachingAsync(string? searchPhrase, int pageSize, int pageNumber, string? sortBy, SortDirection sortDirection);
+        Task<(IEnumerable<Motorcycle>, int)> GetAllOrByLicensePlateAsync(string? licensePlate, int pageSize, int pageNumber, string? sortBy, SortDirection sortDirection);
+
+        Task<(IEnumerable<Motorcycle>, int)> GetAllMatchingAsync(string? searchPhrase, int pageSize, int pageNumber, string? sortBy, SortDirection sortDirection);
     }
 }

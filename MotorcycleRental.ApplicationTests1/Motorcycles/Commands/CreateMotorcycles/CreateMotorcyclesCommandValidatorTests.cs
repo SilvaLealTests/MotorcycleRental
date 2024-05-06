@@ -6,10 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentValidation.TestHelper;
+using Microsoft.AspNetCore.Identity;
+using MotorcycleRental.Domain.Entities;
 
 namespace MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycle.Tests
 {
-    public class CreateMotorcyclesCommandValidatorTests
+    public class CreateMotorcyclesCommandValidatorTests()
     {
         [Fact()]
             public void validator_ForValidCommand_ShouldNotHaveValitationErrors()

@@ -5,6 +5,8 @@ namespace MotorcycleRental.Domain.Repositories
 {
     public interface IUserRepository
     {
-          Task<IdentityResult> InsertBiker(User entity, string password);
+          Task<bool> InsertBiker(User entity, string password);
+
+        Task<bool> InsertAdmin(User entity, string password);
     }
 }

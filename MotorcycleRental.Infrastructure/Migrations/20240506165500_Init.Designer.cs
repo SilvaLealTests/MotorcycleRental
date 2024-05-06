@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MotorcycleRental.Infrastructure.Migrations
 {
     [DbContext(typeof(MotorcycleRentalDbContext))]
-    [Migration("20240505143302_Init")]
+    [Migration("20240506165500_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -298,7 +298,8 @@ namespace MotorcycleRental.Infrastructure.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.Property<int>("UserType")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasComment("The unique valid values are:Admin(Admin) and Biker(Biker)");
 
                     b.HasKey("Id");
 
@@ -401,8 +402,8 @@ namespace MotorcycleRental.Infrastructure.Migrations
                             b1.Property<string>("CNH")
                                 .HasColumnType("text");
 
-                            b1.Property<string>("CNHType")
-                                .HasColumnType("text");
+                            b1.Property<int?>("CNHType")
+                                .HasColumnType("integer");
 
                             b1.Property<string>("CNPJ")
                                 .HasColumnType("text");

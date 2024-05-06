@@ -33,13 +33,11 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-    app.MapGroup("api/identity")
-    .WithTags("Identity")
-    .MapIdentityApi<User>();
+    //app.MapGroup("api/identity")
+    //.WithTags("Identity")
+    //.MapIdentityApi<User>();
 
-    app.MapIdentityApi<User>();
-
-app.UseAuthorization();
+    app.UseAuthorization();
 
 app.MapControllers();
 
@@ -50,3 +48,5 @@ catch (Exception)
 
     throw;
 }
+
+public partial class Program { }

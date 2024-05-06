@@ -31,11 +31,11 @@ namespace MotorcycleRental.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    UserType = table.Column<int>(type: "integer", nullable: false),
+                    UserType = table.Column<int>(type: "integer", nullable: false, comment: "The unique valid values are:Admin(Admin) and Biker(Biker)"),
                     Biker_CNPJ = table.Column<string>(type: "text", nullable: true),
                     Biker_DateOfBirth = table.Column<DateOnly>(type: "date", nullable: true),
                     Biker_CNH = table.Column<string>(type: "text", nullable: true),
-                    Biker_CNHType = table.Column<string>(type: "text", nullable: true),
+                    Biker_CNHType = table.Column<int>(type: "integer", nullable: true),
                     Biker_CHNImg = table.Column<string>(type: "text", nullable: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),

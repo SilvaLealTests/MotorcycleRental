@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MotorcycleRental.Domain.Entities;
@@ -17,7 +18,9 @@ namespace MotorcycleRental.Infrastructure.Extensions
             var connectionString = configuration.GetConnectionString("MotorcycleRentDb");
             services.AddDbContext<MotorcycleRentalDbContext>(options => options.UseNpgsql(connectionString));
 
-            services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<MotorcycleRentalDbContext>();
+            services.AddIdentityApiEndpoints<User>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<MotorcycleRentalDbContext>();
             
             services.AddScoped<IMotorcycleRentalSeeder, MotorcycleRentalSeeder>();
             services.AddScoped<IMotocyclesRepository, MotocyclesRepository>();

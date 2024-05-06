@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using MotorcycleRental.Domain.Constants;
@@ -12,10 +11,10 @@ namespace MotorcycleRental.Application.Users.Commands.BikerRegister
         IUserRepository repository,
         ILogger<BikerRegisterCommandHandler> logger,
         IUserStore<User> userStore
-        ) : IRequestHandler<BikerRegisterCommand, IdentityResult>
+        ) : IRequestHandler<BikerRegisterCommand, bool>
     {
         
-        public async Task<IdentityResult> Handle(BikerRegisterCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(BikerRegisterCommand request, CancellationToken cancellationToken)
         {
             logger.LogInformation("Creating a Bike User {BikeUser}",request);
 
@@ -24,8 +23,7 @@ namespace MotorcycleRental.Application.Users.Commands.BikerRegister
         User user = new User();
             user.Biker = request.Biker;
             user.UserType = UserType.Biker;
-            user.Email = request.Email;
-             
+            user.Email = request.Email;             
             user.UserName = request.Email;
             user.NormalizedUserName = request.Email.ToUpper();
             user.NormalizedEmail = request.Email.ToUpper();            
@@ -34,9 +32,8 @@ namespace MotorcycleRental.Application.Users.Commands.BikerRegister
 
             //var dbUser = await userStore.CreateAsync(user, cancellationToken);
 
-            var identityResult = await repository.InsertBiker(user,request.Password);
+            return await repository.InsertBiker(user,request.Password);
 
-            return identityResult;
 
             
         }
