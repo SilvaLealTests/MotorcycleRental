@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycles;
+using MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycle;
 using MotorcycleRental.Domain.Entities;
 using MotorcycleRental.Domain.Exceptions;
 using MotorcycleRental.Infrastructure.Repositories;
@@ -10,7 +10,7 @@ namespace MotorcycleRental.Application.Motorcycles.Commands.UpdateMotorcycle
 {
     public class UpdateMotorcycleCommandHandler(
     IMotocyclesRepository repository,
-    ILogger<CreateMotorcyclesCommandHandler> logger,
+    ILogger<CreateMotorcycleCommandHandler> logger,
     IMapper mapper) : IRequestHandler<UpdateMotorcycleCommand>
     {
         public async Task Handle(UpdateMotorcycleCommand request, CancellationToken cancellationToken)

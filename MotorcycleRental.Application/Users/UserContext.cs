@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MotorcycleRental.Domain.Constants;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MotorcycleRental.Application.User
+namespace MotorcycleRental.Application.Users
 {
     public interface IUserContext
     {

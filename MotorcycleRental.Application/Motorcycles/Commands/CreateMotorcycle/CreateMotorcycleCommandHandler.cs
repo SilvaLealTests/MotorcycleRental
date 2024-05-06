@@ -4,14 +4,14 @@ using Microsoft.Extensions.Logging;
 using MotorcycleRental.Domain.Entities;
 using MotorcycleRental.Infrastructure.Repositories;
 
-namespace MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycles;
+namespace MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycle;
 
-public class CreateMotorcyclesCommandHandler(
+public class CreateMotorcycleCommandHandler(
     IMotocyclesRepository repository,
-    ILogger<CreateMotorcyclesCommandHandler> logger,
-    IMapper mapper) : IRequestHandler<CreateMotorcyclesCommand, int>
+    ILogger<CreateMotorcycleCommandHandler> logger,
+    IMapper mapper) : IRequestHandler<CreateMotorcycleCommand, int>
 {
-    public async Task<int> Handle(CreateMotorcyclesCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreateMotorcycleCommand request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Creating a new motorcycle");
 

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycles;
+using MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycle;
 using MotorcycleRental.Domain.Entities;
 
 namespace MotorcycleRental.Application.Motorcycles.Dtos;
@@ -8,7 +8,7 @@ public class MotorcyclesProfile : Profile
 {
     public MotorcyclesProfile()
     {
-        CreateMap<CreateMotorcyclesCommand, Motorcycle>();
+        CreateMap<CreateMotorcycleCommand, Motorcycle>();
         CreateMap<Motorcycle, MotorcycleDto>();
     }
 }

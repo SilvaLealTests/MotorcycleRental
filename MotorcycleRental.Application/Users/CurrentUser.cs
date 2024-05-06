@@ -1,6 +1,6 @@
 ﻿using MotorcycleRental.Domain.Constants;
 
-namespace MotorcycleRental.Application.User
+namespace MotorcycleRental.Application.Users
 {
     public record CurrentUser(string Id, string Email, IEnumerable<string> Roles, UserType UserType)
     {

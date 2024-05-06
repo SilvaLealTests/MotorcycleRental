@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycles;
+using MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycle;
 using MotorcycleRental.Application.Motorcycles.Queries.GetAllMotorcycles;
 using MotorcycleRental.Application.Motorcycles.Queries.GetMotorcycleById;
 
@@ -37,7 +37,7 @@ namespace MotorcycleRental.API.Controllers
 
         // POST api/<MotorcycleController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateMotorcyclesCommand command)
+        public async Task<IActionResult> Post([FromBody] CreateMotorcycleCommand command)
         {
             int id = await mediator.Send(command);
 

@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
-using MotorcycleRental.Application.Motorcycles;
-using MotorcycleRental.Application.RentalPlans;
+using MotorcycleRental.Application.Users;
 
 namespace MotorcycleRental.Application.Extensions
 {
@@ -18,6 +17,10 @@ namespace MotorcycleRental.Application.Extensions
 
             services.AddValidatorsFromAssembly(applicationAssembly)
                 .AddFluentValidationAutoValidation();
+
+            services.AddScoped<IUserContext,UserContext>();
+
+            services.AddHttpContextAccessor();
         }
     }
 }

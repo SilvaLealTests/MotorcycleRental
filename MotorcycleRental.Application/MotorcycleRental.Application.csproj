@@ -16,4 +16,8 @@
     <ProjectReference Include="..\MotorcycleRental.Domain\MotorcycleRental.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Users\Dtos\" />
+  </ItemGroup>
+
 </Project>

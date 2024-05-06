@@ -87,13 +87,15 @@ namespace MotorcycleRental.Infrastructure.Seeders
             List<Motorcycle> motorcycles = [
                 new()
                 {
-                    Model = "Honda CB 300",
+                    Description = "Honda CB 300",
+                    Model = 2022,
                     Year =  2023,
                     LicensePlate = "ABC-1A23"
                 },
                 new()
                 {
-                    Model = "Yamaha Factor 125",
+                    Description = "Yamaha Factor 125",
+                    Model = 2020,
                     Year =  2021,
                     LicensePlate = "ABC-1B23"
                 }

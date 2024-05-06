@@ -12,9 +12,10 @@ public class Motorcycle
     [Required]    
     public int Year { get; set; }
 
-    [Required]
-    [MaxLength(100)]
-    public string Model { get; set; } = default!;
+    [Required]    
+    public int Model { get; set; } = default!;
+    
+    public string? Description { get; set; }
 
     [Required]
     [MaxLength(10)]
