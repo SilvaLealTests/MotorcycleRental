@@ -8,7 +8,7 @@ using MotorcycleRental.Infrastructure.Repositories;
 namespace MotorcycleRental.Application.Motorcycles.Commands.DeleteMotorcycle
 {
     public class DeleteMotorcycleCommandHandler(
-        IMotocyclesRepository repository,
+        IMotorcyclesRepository repository,
         ILogger<DeleteMotorcycleCommandHandler> logger
         ) : IRequestHandler<DeleteMotorcycleCommand>
     {
@@ -20,6 +20,8 @@ namespace MotorcycleRental.Application.Motorcycles.Commands.DeleteMotorcycle
 
             if (motorcycles is null)
                 throw new NotFoundException(nameof(Motorcycle), request.Id.ToString());
+
+            //verificar se tem locações
 
             await repository.Delete(motorcycles);
 

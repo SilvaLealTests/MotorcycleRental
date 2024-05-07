@@ -10,7 +10,7 @@ using MotorcycleRental.Domain.Constants;
 
 namespace MotorcycleRental.API.Controllers
 {
-    //[Authorize(Roles = UserRoles.Admin)]
+    [Authorize(Roles = UserRoles.Admin)]
     [Route("api/[controller]")]
     [ApiController]
     public class MotorcycleController(IMediator mediator) : ControllerBase

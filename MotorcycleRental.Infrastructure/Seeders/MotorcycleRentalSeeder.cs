@@ -79,7 +79,13 @@ namespace MotorcycleRental.Infrastructure.Seeders
                     UserType = UserType.Biker,
                 UserName = "biker@test.com",
                 NormalizedUserName = "biker@test.com".ToUpper(),
-                NormalizedEmail = "biker@test.com".ToUpper()
+                NormalizedEmail = "biker@test.com".ToUpper(),
+                Biker = new Biker()
+                {
+                    CNH="99999999999",
+                    CNHType="A",
+                    DateOfBirth=new DateOnly(1992,1,16)
+                }
             };
 
                 resultUser = await userManager.CreateAsync(userBiker, "Password!1");

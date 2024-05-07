@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace MotorcycleRental.Infrastructure.Repositories
 {
-    public interface IMotocyclesRepository
+    public interface IMotorcyclesRepository
     {
         Task<IEnumerable<Motorcycle>> GetAllAsync();
 

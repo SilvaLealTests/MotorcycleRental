@@ -10,7 +10,7 @@ namespace MotorcycleRental.Domain.Entities
 
         public string? CNH { get; set; } 
 
-        public CNHTypes? CNHType { get; set; }
+        public string? CNHType { get; set; }
 
         public string? CHNImg { get; set; } 
 

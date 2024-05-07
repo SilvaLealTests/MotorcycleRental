@@ -35,7 +35,7 @@ namespace MotorcycleRental.Infrastructure.Migrations
                     Biker_CNPJ = table.Column<string>(type: "text", nullable: true),
                     Biker_DateOfBirth = table.Column<DateOnly>(type: "date", nullable: true),
                     Biker_CNH = table.Column<string>(type: "text", nullable: true),
-                    Biker_CNHType = table.Column<int>(type: "integer", nullable: true),
+                    Biker_CNHType = table.Column<string>(type: "text", nullable: true),
                     Biker_CHNImg = table.Column<string>(type: "text", nullable: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -264,6 +264,12 @@ namespace MotorcycleRental.Infrastructure.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Motorcycles_LicensePlate",
+                table: "Motorcycles",
+                column: "LicensePlate",
                 unique: true);
 
             migrationBuilder.CreateIndex(

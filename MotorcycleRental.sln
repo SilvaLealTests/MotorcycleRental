@@ -17,9 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose.yaml = docker-compose.yaml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorcycleRental.ApplicationTests", "MotorcycleRental.ApplicationTests1\MotorcycleRental.ApplicationTests.csproj", "{EBB5101B-DBBE-4AC4-BCCA-C330D52BF83A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6119D935-A606-4F12-93DD-633A89BD55DA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{89F1E034-C5E5-4354-B52C-21C4B2EEEC60}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DDDC1C2C-52F3-4630-9ADC-43E752932FB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,16 +43,15 @@ Global
 		{5A2247CD-6DEB-4BF5-A0A2-A05AA792E40B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A2247CD-6DEB-4BF5-A0A2-A05AA792E40B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A2247CD-6DEB-4BF5-A0A2-A05AA792E40B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EBB5101B-DBBE-4AC4-BCCA-C330D52BF83A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EBB5101B-DBBE-4AC4-BCCA-C330D52BF83A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EBB5101B-DBBE-4AC4-BCCA-C330D52BF83A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EBB5101B-DBBE-4AC4-BCCA-C330D52BF83A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{EBB5101B-DBBE-4AC4-BCCA-C330D52BF83A} = {89F1E034-C5E5-4354-B52C-21C4B2EEEC60}
+		{1CEC0E69-A7AC-4D32-92E7-37699F21CB5A} = {DDDC1C2C-52F3-4630-9ADC-43E752932FB3}
+		{261A1292-AB1B-4B70-9308-105CD16EB72F} = {DDDC1C2C-52F3-4630-9ADC-43E752932FB3}
+		{F0F46C0F-D011-4E67-B717-274083D8266B} = {DDDC1C2C-52F3-4630-9ADC-43E752932FB3}
+		{5A2247CD-6DEB-4BF5-A0A2-A05AA792E40B} = {DDDC1C2C-52F3-4630-9ADC-43E752932FB3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD413A4E-F725-4865-9AA8-D603A6F48CAB}

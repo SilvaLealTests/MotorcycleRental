@@ -8,7 +8,7 @@ using MotorcycleRental.Infrastructure.Repositories;
 namespace MotorcycleRental.Application.Motorcycles.Queries.GetAllMotorcycles
 {
     public class GetAllMotorcyclesQueryHandler(
-        IMotocyclesRepository repository,
+        IMotorcyclesRepository repository,
         ILogger<GetAllMotorcyclesQueryHandler> logger,
         IMapper mapper
         ) : IRequestHandler<GetAllMotorcyclesQuery, PagedResult<MotorcycleDto>>

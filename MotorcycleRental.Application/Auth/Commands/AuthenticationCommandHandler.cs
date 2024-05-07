@@ -24,7 +24,7 @@ namespace MotorcycleRental.Application.Auth.Commands
             var user = await userManager.FindByEmailAsync(request.Email);
             if (user != null && await userManager.CheckPasswordAsync(user,request.Password)) {
 
-                var token = tokenService.CreateToken(user);
+                var token = await tokenService.GenerateToken(user);
                 var refreshToken = "";// GenerateRefreshToken();
 
                 return new LoginResultDto()

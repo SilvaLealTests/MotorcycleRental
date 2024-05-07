@@ -7,7 +7,7 @@ namespace MotorcycleRental.Application.Users.Commands.BikerRegister
     public class BikerRegisterCommandValidator : AbstractValidator<BikerRegisterCommand>
     {
         
-        private readonly List<string?> validCNHTypes = ["A", "B", "AB"];
+        private readonly List<string> validCNHTypes = ["A", "B", "AB"];
 
         public BikerRegisterCommandValidator()
         {           
@@ -29,9 +29,10 @@ namespace MotorcycleRental.Application.Users.Commands.BikerRegister
             //     .WithMessage("Please provide a valid CNPJ (99.999.999/9999-99).")
             //     .Must(BeAValidCNPJ).WithMessage("CNPJ inválido.");
 
-            // RuleFor(dto => dto.Biker.CNHType.ToString())
-            //.Must(validCNHTypes.Contains)
-            //.WithMessage("Invalid CHNType. Please choose from the valid types(A,B or AB).");
+            RuleFor(dto => dto.Biker.CNHType)
+            .NotEmpty()
+           .Must(validCNHTypes.Contains)
+           .WithMessage("Invalid CHNType. Please choose from the valid types(A,B or AB).");
 
             // RuleFor(dto => dto.Biker.DateOfBirth).NotEmpty();
         }

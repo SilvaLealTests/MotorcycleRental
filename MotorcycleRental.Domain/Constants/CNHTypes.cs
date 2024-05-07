@@ -1,9 +1,10 @@
 ﻿namespace MotorcycleRental.Domain.Constants
 {
-    public enum CNHTypes
+    public class CNHTypes
     {
-        A,
-        B,
-        AB
+        public const string A = "A";
+        public const string B = "B";
+        public const string AB = "AB";
+
     }
 }

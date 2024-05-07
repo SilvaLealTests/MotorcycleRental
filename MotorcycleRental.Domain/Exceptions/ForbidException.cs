@@ -1,5 +1,5 @@
 ﻿namespace MotorcycleRental.Domain.Exceptions;
 
-public class ForbidException : Exception
+public class ForbidException(string message="") : Exception(message)
 {
 }

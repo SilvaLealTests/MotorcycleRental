@@ -178,6 +178,9 @@ namespace MotorcycleRental.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("LicensePlate")
+                        .IsUnique();
+
                     b.ToTable("Motorcycles");
                 });
 
@@ -399,8 +402,8 @@ namespace MotorcycleRental.Infrastructure.Migrations
                             b1.Property<string>("CNH")
                                 .HasColumnType("text");
 
-                            b1.Property<int?>("CNHType")
-                                .HasColumnType("integer");
+                            b1.Property<string>("CNHType")
+                                .HasColumnType("text");
 
                             b1.Property<string>("CNPJ")
                                 .HasColumnType("text");

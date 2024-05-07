@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using MotorcycleRental.Domain.Constants;
 using MotorcycleRental.Domain.Entities;
 
 namespace MotorcycleRental.Infrastructure.Persistence;
@@ -21,14 +20,12 @@ internal class MotorcycleRentalDbContext(DbContextOptions<MotorcycleRentalDbCont
         .HasIndex(u => u.LicensePlate)
         .IsUnique();
 
+
         modelBuilder.Entity<User>()
             .OwnsOne(u => u.Biker);
 
         modelBuilder.Entity<User>(entity =>
-         entity.Property(e => e.UserType).HasComment($"The unique valid values are:{UserType.Admin}(Admin) and {UserType.Biker}(Biker)"));
-            
-
-
+         entity.Property(e => e.UserType).HasComment($"The unique valid values are:0 (Admin) and 1 (Biker)"));       
 
     }
 

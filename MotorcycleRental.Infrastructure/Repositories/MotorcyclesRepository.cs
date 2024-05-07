@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace MotorcycleRental.Infrastructure.Repositories
 {
-    internal class MotocyclesRepository(MotorcycleRentalDbContext dbContext) : IMotocyclesRepository
+    internal class MotorcyclesRepository(MotorcycleRentalDbContext dbContext) : IMotorcyclesRepository
     {
         public async Task<int> Create(Motorcycle entity)
         {
