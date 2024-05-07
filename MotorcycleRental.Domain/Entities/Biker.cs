@@ -1,4 +1,6 @@
-﻿namespace MotorcycleRental.Domain.Entities
+﻿using MotorcycleRental.Domain.Constants;
+
+namespace MotorcycleRental.Domain.Entities
 {
     public class Biker
     {
@@ -8,7 +10,7 @@
 
         public string? CNH { get; set; } 
 
-        public string? CNHType { get; set; }
+        public CNHTypes? CNHType { get; set; }
 
         public string? CHNImg { get; set; } 
 
