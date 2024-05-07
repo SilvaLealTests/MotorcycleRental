@@ -23,8 +23,6 @@ namespace MotorcycleRental.Application.Users.Commands.AdminRegister
             user.NormalizedUserName = request.Email.ToUpper();
             user.NormalizedEmail = request.Email.ToUpper();
 
-
-
             var identityResult = await respository.InsertAdmin(user, request.Password);
 
             return identityResult;

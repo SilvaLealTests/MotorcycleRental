@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MotorcycleRental.Application.Auth.Commands;
 using MotorcycleRental.Application.Users.Commands.AdminRegister;
 using MotorcycleRental.Application.Users.Commands.BikerRegister;
 using MotorcycleRental.Domain.Constants;
@@ -33,10 +34,11 @@ namespace MotorcycleRental.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<ActionResult> Login()
+        public async Task<ActionResult> Login(AuthenticationCommand command)
         {
-            
-            return Ok();
+            var result = await mediator.Send(command);
+
+            return Ok(result);
         }
 
     }
