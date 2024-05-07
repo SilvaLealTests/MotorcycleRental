@@ -162,13 +162,16 @@ namespace MotorcycleRental.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("LicensePlate")
-                        .IsRequired()
+                    b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<string>("Model")
+                    b.Property<string>("LicensePlate")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<int>("Model")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Year")
                         .HasColumnType("integer");
@@ -231,7 +234,8 @@ namespace MotorcycleRental.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
@@ -291,7 +295,8 @@ namespace MotorcycleRental.Infrastructure.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.Property<int>("UserType")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasComment("The unique valid values are:Admin(Admin) and Biker(Biker)");
 
                     b.HasKey("Id");
 
@@ -394,8 +399,8 @@ namespace MotorcycleRental.Infrastructure.Migrations
                             b1.Property<string>("CNH")
                                 .HasColumnType("text");
 
-                            b1.Property<string>("CNHType")
-                                .HasColumnType("text");
+                            b1.Property<int?>("CNHType")
+                                .HasColumnType("integer");
 
                             b1.Property<string>("CNPJ")
                                 .HasColumnType("text");

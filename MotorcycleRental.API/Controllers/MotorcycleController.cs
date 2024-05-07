@@ -1,43 +1,71 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycle;
+using MotorcycleRental.Application.Motorcycles.Commands.DeleteMotorcycle;
+using MotorcycleRental.Application.Motorcycles.Commands.UpdateMotorcycle;
+using MotorcycleRental.Application.Motorcycles.Queries.GetAllMotorcycles;
+using MotorcycleRental.Application.Motorcycles.Queries.GetMotorcycleById;
+using MotorcycleRental.Domain.Constants;
 
 namespace MotorcycleRental.API.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     [Route("api/[controller]")]
     [ApiController]
-    public class MotorcycleController : ControllerBase
+    public class MotorcycleController(IMediator mediator) : ControllerBase
     {
         // GET: api/<MotorcycleController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> GetAll([FromQuery] GetAllMotorcyclesQuery query)
         {
-            return new string[] { "value1", "value2" };
+
+            var motorcycles = await mediator.Send(query);
+
+            return Ok(motorcycles);
         }
 
         // GET api/<MotorcycleController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult> GetById(int id)
         {
-            return "value";
+            var motorcycle = await mediator.Send(new GetMotorcycleByIdQuery()
+            {
+                Id = id
+            }
+            );
+
+            return Ok(motorcycle);
         }
 
         // POST api/<MotorcycleController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] CreateMotorcycleCommand command)
         {
+            int id = await mediator.Send(command);
+
+            return CreatedAtAction(nameof(GetById), new { id }, null);
         }
 
         // PUT api/<MotorcycleController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPatch("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateMotorcycleCommand command)
         {
+            command.Id = id;
+            await mediator.Send(command);
+
+            return NoContent();
         }
 
         // DELETE api/<MotorcycleController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async void Delete(int id)
         {
+            await mediator.Send(new DeleteMotorcycleCommand(id));
         }
     }
 }

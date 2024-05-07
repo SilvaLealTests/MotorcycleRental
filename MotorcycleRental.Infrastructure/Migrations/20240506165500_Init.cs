@@ -31,11 +31,11 @@ namespace MotorcycleRental.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    UserType = table.Column<int>(type: "integer", nullable: false),
+                    UserType = table.Column<int>(type: "integer", nullable: false, comment: "The unique valid values are:Admin(Admin) and Biker(Biker)"),
                     Biker_CNPJ = table.Column<string>(type: "text", nullable: true),
                     Biker_DateOfBirth = table.Column<DateOnly>(type: "date", nullable: true),
                     Biker_CNH = table.Column<string>(type: "text", nullable: true),
-                    Biker_CNHType = table.Column<string>(type: "text", nullable: true),
+                    Biker_CNHType = table.Column<int>(type: "integer", nullable: true),
                     Biker_CHNImg = table.Column<string>(type: "text", nullable: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -64,8 +64,9 @@ namespace MotorcycleRental.Infrastructure.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Year = table.Column<int>(type: "integer", nullable: false),
-                    Model = table.Column<string>(type: "text", nullable: false),
-                    LicensePlate = table.Column<string>(type: "text", nullable: false)
+                    Model = table.Column<int>(type: "integer", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    LicensePlate = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -78,7 +79,7 @@ namespace MotorcycleRental.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Description = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Days = table.Column<int>(type: "integer", nullable: false),
                     Cost = table.Column<decimal>(type: "numeric", nullable: false)
                 },

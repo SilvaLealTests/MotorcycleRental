@@ -1,22 +1,20 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using MotorcycleRental.Domain.Constants;
 using MotorcycleRental.Domain.Entities;
 using MotorcycleRental.Infrastructure.Persistence;
 
 namespace MotorcycleRental.Infrastructure.Seeders
 {
-    internal class MotorcycleRentalSeeder(MotorcycleRentalDbContext dbContext) : IMotorcycleRentalSeeder
+    internal class MotorcycleRentalSeeder(
+        MotorcycleRentalDbContext dbContext,
+        UserManager<User> userManager) : IMotorcycleRentalSeeder
     {
         public async Task Seed()
         {
             if (await dbContext.Database.CanConnectAsync())
             {
-                if (!dbContext.Motorcycles.Any())
-                {
-                    var motorcycles = getMotorcycles();
-                    dbContext.Motorcycles.AddRange(motorcycles);
-                    await dbContext.SaveChangesAsync();
-                }
+
 
                 if (!dbContext.Roles.Any())
                 {
@@ -25,13 +23,118 @@ namespace MotorcycleRental.Infrastructure.Seeders
                     await dbContext.SaveChangesAsync();
                 }
 
-                //if (dbContext.Users.Any())
-                //{
-                //    var users = getUsers();
-                //    dbContext.Users.AddRange(users);
-                //    await dbContext.SaveChangesAsync();
-                //}
+                if (!dbContext.Users.Any())
+                {
+                    await InsertUsersWithRoles();
+
+                }
+
+                if (!dbContext.RentalPlans.Any())
+                {
+                    var rentalPlans = getRentalPlans();
+                    dbContext.RentalPlans.AddRange(rentalPlans);
+                    await dbContext.SaveChangesAsync();
+                }
+
+                if (!dbContext.Motorcycles.Any())
+                {
+                    var motorcycles = getMotorcycles();
+                    dbContext.Motorcycles.AddRange(motorcycles);
+                    await dbContext.SaveChangesAsync();
+                }
+
+                
             }
+        }
+
+        private async Task InsertUsersWithRoles()
+        {
+            using var transaction = await dbContext.Database.BeginTransactionAsync();
+
+            try
+            {
+                var userAdmin = new User();
+                userAdmin.UserType = UserType.Admin;
+                userAdmin.Email = "admin@test.com";
+                userAdmin.UserName = "admin@test.com";
+                userAdmin.NormalizedUserName = "admin@test.com".ToUpper();
+                userAdmin.NormalizedEmail = "admin@test.com".ToUpper();
+
+                var resultUser = await userManager.CreateAsync(userAdmin,"Password!1");
+
+                if (!resultUser.Succeeded)
+                {
+                    throw new Exception("Failed to create User");
+                }
+
+                var addToRoleResult = await userManager.AddToRoleAsync(userAdmin, UserRoles.Admin);
+                if (!addToRoleResult.Succeeded)
+                {
+                    throw new Exception($"Failed to assign role: {UserRoles.Admin} to user");
+                }
+
+                var userBiker = new User()
+                {
+                    Email = "biker@test.com",
+                    UserType = UserType.Biker,
+                UserName = "biker@test.com",
+                NormalizedUserName = "biker@test.com".ToUpper(),
+                NormalizedEmail = "biker@test.com".ToUpper()
+            };
+
+                resultUser = await userManager.CreateAsync(userBiker, "Password!1");
+
+                if (!resultUser.Succeeded)
+                {
+                    throw new Exception("Failed to create User");
+                }
+
+                addToRoleResult = await userManager.AddToRoleAsync(userBiker, UserRoles.Biker);
+                if (!addToRoleResult.Succeeded)
+                {
+                    throw new Exception($"Failed to assign role: {UserRoles.Biker} to user");
+                }
+
+                await transaction.CommitAsync();
+
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync();
+            }
+
+        }
+        private IEnumerable<RentalPlan> getRentalPlans()
+        {
+            List<RentalPlan> rentalPlans = [
+                new(){
+                    Cost = 30,
+                    Days = 7,
+                    Description= "7 dias com um custo de R$30,00 por dia"
+                },
+                new(){
+                    Cost = 28,
+                    Days = 15,
+                    Description= "15 dias com um custo de R$28,00 por dia"
+                },
+                new(){
+                    Cost = 22,
+                    Days = 30,
+                    Description= "30 dias com um custo de R$22,00 por dia"
+                },
+                new(){
+                    Cost = 20,
+                    Days = 45,
+                    Description= "45 dias com um custo de R$20,00 por dia"
+                },
+                new(){
+                    Cost = 18,
+                    Days = 50,
+                    Description= "50 dias com um custo de R$18,00 por dia"
+                }
+                ];
+
+            return rentalPlans;
         }
 
         private IEnumerable<IdentityRole> getRoles()
@@ -53,15 +156,15 @@ namespace MotorcycleRental.Infrastructure.Seeders
             List<Motorcycle> motorcycles = [
                 new()
                 {
-                    Id = 1,
-                    Model = "Honda CB 300",
+                    Description = "Honda CB 300",
+                    Model = 2022,
                     Year =  2023,
                     LicensePlate = "ABC-1A23"
                 },
                 new()
                 {
-                    Id = 2,
-                    Model = "Yamaha Factor 125",
+                    Description = "Yamaha Factor 125",
+                    Model = 2020,
                     Year =  2021,
                     LicensePlate = "ABC-1B23"
                 }
