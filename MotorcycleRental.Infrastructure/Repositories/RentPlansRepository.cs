@@ -5,7 +5,7 @@ using MotorcycleRental.Infrastructure.Persistence;
 
 namespace MotorcycleRental.Infrastructure.Repositories
 {
-    internal class RentalPlansRepository(MotorcycleRentalDbContext dbContext) : IRentalPlansRepository
+    internal class RentPlansRepository(MotorcycleRentalDbContext dbContext) : IRentPlansRepository
     {
         public async Task<int> Create(RentPlan entity)
         {

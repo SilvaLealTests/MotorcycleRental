@@ -1,4 +1,6 @@
-﻿namespace MotorcycleRental.Application.Motorcycles.Dtos
+﻿using System.Text.Json.Serialization;
+
+namespace MotorcycleRental.Application.Motorcycles.Dtos
 {
     public class MotorcycleDto
     {

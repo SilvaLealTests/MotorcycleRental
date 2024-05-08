@@ -23,10 +23,11 @@ namespace MotorcycleRental.Infrastructure.Extensions
                 .AddEntityFrameworkStores<MotorcycleRentalDbContext>();
             
             services.AddScoped<IMotorcycleRentalSeeder, MotorcycleRentalSeeder>();
-            services.AddScoped<IMotocyclesRepository, MotocyclesRepository>();
-            services.AddScoped<IRentalPlansRepository, RentalPlansRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IRentRepository, RentRepository>();
+            services.AddScoped<IMotorcyclesRepository, MotorcyclesRepository>();
+            services.AddScoped<IRentPlansRepository, RentPlansRepository>();
+            services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IRentsRepository, RentsRepository>();
+            services.AddScoped<IBikersRepository, BikersRepository>(); 
 
             
             

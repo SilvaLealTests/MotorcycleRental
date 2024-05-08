@@ -7,9 +7,9 @@ using MotorcycleRental.Infrastructure.Persistence;
 
 namespace MotorcycleRental.Infrastructure.Repositories
 {
-    internal class UserRepository(
+    internal class UsersRepository(
         UserManager<User> userManager,        
-        MotorcycleRentalDbContext dbContext) : IUserRepository
+        MotorcycleRentalDbContext dbContext) : IUsersRepository
     {
         public async Task<bool> InsertAdmin(User entity, string password)
         {

@@ -8,7 +8,7 @@ using MotorcycleRental.Infrastructure.Repositories;
 namespace MotorcycleRental.Application.Motorcycles.Commands.DeleteMotorcycle
 {
     public class DeleteMotorcycleCommandHandler(
-        IMotocyclesRepository repository,
+        IMotorcyclesRepository repository,
         ILogger<DeleteMotorcycleCommandHandler> logger
         ) : IRequestHandler<DeleteMotorcycleCommand>
     {

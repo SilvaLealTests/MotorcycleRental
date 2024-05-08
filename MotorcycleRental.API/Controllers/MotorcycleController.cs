@@ -4,19 +4,22 @@ using Microsoft.AspNetCore.Mvc;
 using MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycle;
 using MotorcycleRental.Application.Motorcycles.Commands.DeleteMotorcycle;
 using MotorcycleRental.Application.Motorcycles.Commands.UpdateMotorcycle;
+using MotorcycleRental.Application.Motorcycles.Queries.GetAllMotorcycleActives;
 using MotorcycleRental.Application.Motorcycles.Queries.GetAllMotorcycles;
 using MotorcycleRental.Application.Motorcycles.Queries.GetMotorcycleById;
 using MotorcycleRental.Domain.Constants;
 
 namespace MotorcycleRental.API.Controllers
 {
-    [Authorize(Roles = UserRoles.Admin)]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MotorcycleController(IMediator mediator) : ControllerBase
     {
+
         // GET: api/<MotorcycleController>
         [HttpGet]
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> GetAll([FromQuery] GetAllMotorcyclesQuery query)
         {
 
@@ -27,6 +30,7 @@ namespace MotorcycleRental.API.Controllers
 
         // GET api/<MotorcycleController>/5
         [HttpGet("{id}")]
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<ActionResult> GetById(int id)
         {
             var motorcycle = await mediator.Send(new GetMotorcycleByIdQuery()
@@ -40,6 +44,7 @@ namespace MotorcycleRental.API.Controllers
 
         // POST api/<MotorcycleController>
         [HttpPost]
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> Post([FromBody] CreateMotorcycleCommand command)
         {
             int id = await mediator.Send(command);
@@ -49,6 +54,7 @@ namespace MotorcycleRental.API.Controllers
 
         // PUT api/<MotorcycleController>/5
         [HttpPatch("{id}")]
+        [Authorize(Roles = UserRoles.Admin)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateMotorcycleCommand command)
@@ -63,9 +69,19 @@ namespace MotorcycleRental.API.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = UserRoles.Admin)]
         public async void Delete(int id)
         {
             await mediator.Send(new DeleteMotorcycleCommand(id));
+        }
+
+        [HttpGet("getActives")]
+        [Authorize(Roles = $"{UserRoles.Admin},{UserRoles.Biker}")]
+        public async Task<ActionResult> GetActives()
+        {
+            var motorcycle = await mediator.Send(new GetAllActivesMotorcyclesQuery());            
+
+            return Ok(motorcycle);
         }
     }
 }

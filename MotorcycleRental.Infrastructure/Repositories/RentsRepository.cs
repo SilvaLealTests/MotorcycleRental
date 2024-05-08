@@ -5,7 +5,7 @@ using MotorcycleRental.Infrastructure.Persistence;
 
 namespace MotorcycleRental.Infrastructure.Repositories
 {
-    internal class RentRepository(MotorcycleRentalDbContext dbContext) : IRentRepository
+    internal class RentsRepository(MotorcycleRentalDbContext dbContext) : IRentsRepository
     {
         public async Task<int> Create(Rent entity)
         {
@@ -15,9 +15,17 @@ namespace MotorcycleRental.Infrastructure.Repositories
 
         public async Task<Rent?> GetActiveRentByBiker(int bikerId)
         {
-            var list = await dbContext.Rents.Where(x => x.Biker.Id == bikerId && x.FinalDate == null).ToListAsync();
+            var list = await dbContext.Rents.Where(x => x.Biker.Id == bikerId && x.FinalDate == null)
+                .Include(r => r.RentPlan).ToListAsync();
 
             return list.FirstOrDefault();
+        }
+
+        public async Task<Rent?> GetByIdAndByBikerIdAsync(int rentId,int bikerId)
+        {
+            var rent = await dbContext.Rents.Where(x => x.Id == rentId && x.BikerId == bikerId).ToListAsync();
+
+            return rent.FirstOrDefault();
         }
     }
 }

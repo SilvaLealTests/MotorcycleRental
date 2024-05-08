@@ -7,7 +7,7 @@ using MotorcycleRental.Infrastructure.Repositories;
 namespace MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycle;
 
 public class CreateMotorcycleCommandHandler(
-    IMotocyclesRepository repository,
+    IMotorcyclesRepository repository,
     ILogger<CreateMotorcycleCommandHandler> logger,
     IMapper mapper) : IRequestHandler<CreateMotorcycleCommand, int>
 {

@@ -3,23 +3,23 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using MotorcycleRental.Application.Common;
 using MotorcycleRental.Application.Motorcycles.Dtos;
+using MotorcycleRental.Application.Motorcycles.Queries.GetAllMotorcycles;
 using MotorcycleRental.Infrastructure.Repositories;
 
-namespace MotorcycleRental.Application.Motorcycles.Queries.GetAllMotorcycles
+namespace MotorcycleRental.Application.Motorcycles.Queries.GetAllMotorcycleActives
 {
-    public class GetAllMotorcyclesQueryHandler(
-        IMotorcyclesRepository repository,
+    public class GetAllActivesMotorcyclesQueryHandler(
+         IMotorcyclesRepository repository,
         ILogger<GetAllMotorcyclesQueryHandler> logger,
         IMapper mapper
-        ) : IRequestHandler<GetAllMotorcyclesQuery, PagedResult<MotorcycleDto>>
+        ) : IRequestHandler<GetAllActivesMotorcyclesQuery, PagedResult<MotorcycleDto>>
     {
-
-        public async Task<PagedResult<MotorcycleDto>> Handle(GetAllMotorcyclesQuery request, CancellationToken cancellationToken)
+        public async Task<PagedResult<MotorcycleDto>> Handle(GetAllActivesMotorcyclesQuery request, CancellationToken cancellationToken)
         {
-            logger.LogInformation("Getting all motorcycles");
+            logger.LogInformation("Getting all actives motorcycles");
 
             var (motorcycles, totalCount) = await repository.GetAllOrByLicensePlateAsync(
-                request.LicensePlate,
+                request.seach,
                 request.PageSize,
                 request.PageNumber,
                 request.SortBy,
@@ -31,6 +31,5 @@ namespace MotorcycleRental.Application.Motorcycles.Queries.GetAllMotorcycles
 
             return result;
         }
-
     }
 }

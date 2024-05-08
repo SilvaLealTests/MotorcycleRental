@@ -2,7 +2,7 @@
 
 namespace MotorcycleRental.Domain.Repositories
 {
-    public interface IRentalPlansRepository
+    public interface IRentPlansRepository
     {
         Task<IEnumerable<RentPlan>> GetAllByAsync();
 
