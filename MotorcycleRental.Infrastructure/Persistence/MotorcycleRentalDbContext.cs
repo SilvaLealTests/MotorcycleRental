@@ -10,7 +10,9 @@ internal class MotorcycleRentalDbContext(DbContextOptions<MotorcycleRentalDbCont
 {   
 
     internal DbSet<Motorcycle> Motorcycles { get; set; }
-    internal DbSet<RentalPlan> RentalPlans { get; set;}
+    internal DbSet<RentPlan> RentalPlans { get; set;}
+
+    internal DbSet<Biker> Bikers { get; set; }
     internal DbSet<Rent> Rents { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,14 +23,13 @@ internal class MotorcycleRentalDbContext(DbContextOptions<MotorcycleRentalDbCont
         .HasIndex(u => u.LicensePlate)
         .IsUnique();
 
-        modelBuilder.Entity<User>()
-            .OwnsOne(u => u.Biker);
+        modelBuilder.Entity<Biker>()
+            .HasIndex(u => u.CNPJ)
+            .IsUnique();
 
-        modelBuilder.Entity<User>(entity =>
-         entity.Property(e => e.UserType).HasComment($"The unique valid values are:{UserType.Admin}(Admin) and {UserType.Biker}(Biker)"));
-            
-
-
+        modelBuilder.Entity<Biker>()
+            .HasIndex(u => u.CNH)
+            .IsUnique();
 
     }
 

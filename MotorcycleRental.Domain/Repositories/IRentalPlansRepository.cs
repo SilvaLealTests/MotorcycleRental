@@ -4,13 +4,13 @@ namespace MotorcycleRental.Domain.Repositories
 {
     public interface IRentalPlansRepository
     {
-        Task<IEnumerable<RentalPlan>> GetAllByAsync();
+        Task<IEnumerable<RentPlan>> GetAllByAsync();
 
-        Task<RentalPlan?> GetByIdAsync(int id);
+        Task<RentPlan?> GetByIdAsync(int id);
 
-        Task<int> Create(RentalPlan entity);
+        Task<int> Create(RentPlan entity);
 
-        Task Delete(RentalPlan entity);
+        Task Delete(RentPlan entity);
 
         Task SaveChanges();
 

@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MotorcycleRental.Application.RentalPlans.Commands.CreateRentalPlan;
-using MotorcycleRental.Application.RentalPlans.Commands.DeleteRentalPlan;
-using MotorcycleRental.Application.RentalPlans.Commands.UpdateRentalPlan;
-using MotorcycleRental.Application.RentalPlans.Dtos;
-using MotorcycleRental.Application.RentalPlans.Queries.GetAllRentalPlans;
 using MotorcycleRental.Application.RentalPlans.Queries.GetRentalPlanById;
+using MotorcycleRental.Application.RentPlans.Commands.CreateRentPlan;
+using MotorcycleRental.Application.RentPlans.Commands.DeleteRentPlan;
+using MotorcycleRental.Application.RentPlans.Commands.UpdateRentPlan;
+using MotorcycleRental.Application.RentPlans.Dtos;
+using MotorcycleRental.Application.RentPlans.Queries.GetAllRentPlans;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,9 +17,9 @@ namespace MotorcycleRental.API.Controllers
     {
         // GET: api/<RentalPlansController>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RentalPlanDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<RentPlanDto>>> GetAll()
         {
-            var rentalPlans = await mediator.Send(new GetAllRentalPlansQuery());
+            var rentalPlans = await mediator.Send(new GetAllRentPlansQuery());
 
             return Ok(rentalPlans);
             
@@ -27,7 +27,7 @@ namespace MotorcycleRental.API.Controllers
 
         // GET api/<RentalPlansController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<RentalPlanDto?>> GetById(int id)
+        public async Task<ActionResult<RentPlanDto?>> GetById(int id)
         {
             var rentalPlan = await mediator.Send(new GetRentalPlanByIdQuery(id));
 
@@ -36,7 +36,7 @@ namespace MotorcycleRental.API.Controllers
 
         // POST api/<RentalPlansController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateRentalPlanCommand command)
+        public async Task<IActionResult> Post([FromBody] CreateRentPlanCommand command)
         {
             int id = await mediator.Send(command);
 
@@ -45,7 +45,7 @@ namespace MotorcycleRental.API.Controllers
 
         // PUT api/<RentalPlansController>/5
         [HttpPatch("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateRentalPlanCommand command)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateRentPlanCommand command)
         {
             command.Id = id;
             await mediator.Send(command);

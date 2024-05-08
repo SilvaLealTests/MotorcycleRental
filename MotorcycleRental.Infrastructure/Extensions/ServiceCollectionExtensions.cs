@@ -26,6 +26,7 @@ namespace MotorcycleRental.Infrastructure.Extensions
             services.AddScoped<IMotocyclesRepository, MotocyclesRepository>();
             services.AddScoped<IRentalPlansRepository, RentalPlansRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRentRepository, RentRepository>();
 
             
             

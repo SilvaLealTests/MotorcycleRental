@@ -3,11 +3,17 @@
     public class Rent
     {
         public int Id { get; set; }
-        public RentalPlan RentalPlan { get; set; } = new();
+        public RentPlan RentalPlan { get; set; } = new();
 
-        public User Biker { get; set; } = new();
+        public int RetalPlaId{ get; set; }
 
+        public Biker Biker { get; set; } = new();
+
+        public int BikerId { get; set; }
+                
         public Motorcycle Motorcycle { get; set; } = new();
+
+        public int MotorcycleId { get; set; }
 
         public DateTime InitialDate { get; set; }
 
