@@ -41,7 +41,7 @@ namespace MotorcycleRental.Infrastructure.Repositories
         }
     
 
-    public async Task<bool> InsertBiker(User entity, string password)
+    public async Task<bool> InsertBiker(User entity, string password,Biker biker)
     {
         using var transaction = await dbContext.Database.BeginTransactionAsync();
 
@@ -58,7 +58,13 @@ namespace MotorcycleRental.Infrastructure.Repositories
             {
                 throw new Exception($"Failed to assign role: {UserRoles.Admin} to user");
             }
+
+            biker.User = entity;
+
+            await dbContext.Bikers.AddAsync(biker);
+
             await transaction.CommitAsync();
+
             return true;
         }
         catch (Exception)

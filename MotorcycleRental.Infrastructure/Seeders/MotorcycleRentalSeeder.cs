@@ -43,7 +43,7 @@ namespace MotorcycleRental.Infrastructure.Seeders
                     await dbContext.SaveChangesAsync();
                 }
 
-                
+
             }
         }
 
@@ -54,13 +54,12 @@ namespace MotorcycleRental.Infrastructure.Seeders
             try
             {
                 var userAdmin = new User();
-                userAdmin.UserType = UserType.Admin;
                 userAdmin.Email = "admin@test.com";
                 userAdmin.UserName = "admin@test.com";
                 userAdmin.NormalizedUserName = "admin@test.com".ToUpper();
                 userAdmin.NormalizedEmail = "admin@test.com".ToUpper();
 
-                var resultUser = await userManager.CreateAsync(userAdmin,"Password!1");
+                var resultUser = await userManager.CreateAsync(userAdmin, "Password!1");
 
                 if (!resultUser.Succeeded)
                 {
@@ -76,11 +75,10 @@ namespace MotorcycleRental.Infrastructure.Seeders
                 var userBiker = new User()
                 {
                     Email = "biker@test.com",
-                    UserType = UserType.Biker,
-                UserName = "biker@test.com",
-                NormalizedUserName = "biker@test.com".ToUpper(),
-                NormalizedEmail = "biker@test.com".ToUpper()
-            };
+                    UserName = "biker@test.com",
+                    NormalizedUserName = "biker@test.com".ToUpper(),
+                    NormalizedEmail = "biker@test.com".ToUpper()
+                };
 
                 resultUser = await userManager.CreateAsync(userBiker, "Password!1");
 
@@ -95,6 +93,16 @@ namespace MotorcycleRental.Infrastructure.Seeders
                     throw new Exception($"Failed to assign role: {UserRoles.Biker} to user");
                 }
 
+                Biker biker = new Biker()
+                {
+                    CNH = "99999999999",
+                    CNPJ = "98.435.634/0001-71",
+                    DateOfBirth = new DateOnly(1982, 1, 16),
+                    User = userBiker
+                };
+
+                dbContext.Bikers.Add(biker);
+
                 await transaction.CommitAsync();
 
             }
@@ -104,9 +112,9 @@ namespace MotorcycleRental.Infrastructure.Seeders
             }
 
         }
-        private IEnumerable<RentalPlan> getRentalPlans()
+        private IEnumerable<RentPlan> getRentalPlans()
         {
-            List<RentalPlan> rentalPlans = [
+            List<RentPlan> rentalPlans = [
                 new(){
                     Cost = 30,
                     Days = 7,
