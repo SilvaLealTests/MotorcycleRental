@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Auth\Queries\" />
-    <Folder Include="Users\Dtos\" />
   </ItemGroup>
 
 </Project>

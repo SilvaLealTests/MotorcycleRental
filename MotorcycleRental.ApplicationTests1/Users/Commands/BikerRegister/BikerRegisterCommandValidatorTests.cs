@@ -22,13 +22,7 @@ namespace MotorcycleRental.Application.Users.Commands.BikerRegister.Tests
             {
                 Email = "fulano@teste.com",
                 Password = "Password1",
-                Biker = new Domain.Entities.Biker()
-                {
-                    CNH = "99999999999",
-                    CNHType = CNHTypes.A,
-                    CNPJ = "39.935.720/0001-84",
-                    DateOfBirth = new DateOnly(1990, 2, 2)
-                }
+                
             };
 
             var validator = new BikerRegisterCommandValidator();

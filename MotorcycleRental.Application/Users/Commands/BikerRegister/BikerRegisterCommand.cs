@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
+using MotorcycleRental.Application.Users.Dtos;
 using MotorcycleRental.Domain.Entities;
 
 namespace MotorcycleRental.Application.Users.Commands.BikerRegister
@@ -9,6 +10,6 @@ namespace MotorcycleRental.Application.Users.Commands.BikerRegister
         public string Email { get; set; }
 
         public string Password { get; set; }
-        public Biker Biker { get; set; } = new();
+        public BikerDto BikerDto { get; set; } = new();
     }
 }
