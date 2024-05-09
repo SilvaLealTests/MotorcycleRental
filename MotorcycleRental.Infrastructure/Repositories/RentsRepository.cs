@@ -21,11 +21,14 @@ namespace MotorcycleRental.Infrastructure.Repositories
             return list.FirstOrDefault();
         }
 
-        public async Task<Rent?> GetByIdAndByBikerIdAsync(int rentId,int bikerId)
+        public async Task<Rent?> GetByIdAndByBikerIdAsync(int rentId, int bikerId)
         {
-            var rent = await dbContext.Rents.Where(x => x.Id == rentId && x.BikerId == bikerId).ToListAsync();
+            var rent = await dbContext.Rents.Where(x => x.Id == rentId && x.BikerId == bikerId)
+                .Include(r => r.RentPlan).Include(r => r.Motorcycle).ToListAsync();
 
             return rent.FirstOrDefault();
         }
+
+        public Task SaveChanges() => dbContext.SaveChangesAsync();
     }
 }

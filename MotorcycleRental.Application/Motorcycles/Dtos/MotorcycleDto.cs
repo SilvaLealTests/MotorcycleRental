@@ -11,5 +11,7 @@ namespace MotorcycleRental.Application.Motorcycles.Dtos
         public string Model { get; set; } = default!;
 
         public string LicensePlate { get; set; } = default!;
+
+        public string Status { get; set; } = default!;
     }
 }

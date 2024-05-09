@@ -10,7 +10,7 @@ namespace MotorcycleRental.Domain.Repositories
 
         Task<Rent?> GetByIdAndByBikerIdAsync(int rentId, int bikerId);
 
-
+        Task SaveChanges();
 
     }
 }

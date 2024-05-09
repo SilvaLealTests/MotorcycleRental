@@ -49,22 +49,23 @@ namespace MotorcycleRental.Application.Rents.Queries.CheckRentValue
         private decimal getCalculateValue(Rent rent, DateOnly previewDate)
         {
             decimal result = 0;
-            int difference = rent.PreviewDate.DayNumber - previewDate.DayNumber;
+            int dailyRates = previewDate.DayNumber - rent.InitialDate.DayNumber;
             if (previewDate < rent.PreviewDate)
             {
                 
                 if (rent.RentPlan.Days <= 7)
                 {
-                    result = difference * rent.RentPlan.Cost * 1.2M;
+                    result = dailyRates * rent.RentPlan.Cost * 1.2M;
                 }
                 else
                 {
-                    result = difference * rent.RentPlan.Cost * 1.4M;
+                    result = dailyRates * rent.RentPlan.Cost * 1.4M;
                 }
             }
             else
             {
-                result = Math.Abs(difference) * 50;
+                int extraDaily = previewDate.DayNumber - rent.PreviewDate.DayNumber;
+                result = (rent.RentPlan.Cost * rent.RentPlan.Days) +  extraDaily * 50;
             }
 
             return result;

@@ -17,16 +17,12 @@ namespace MotorcycleRental.Application.Rents.Dtos
 
         public BikerDto Biker { get; set; } = new();
 
-       
-
         public MotorcycleDto Motorcycle { get; set; } = new();
-
-       
-
-        public DateTime InitialDate { get; set; }
+        
+        public DateOnly InitialDate { get; set; }
 
         public DateTime? FinalDate { get; set; }
 
-        public DateTime PreviewDate { get; set; }
+        public DateOnly PreviewDate { get; set; }
     }
 }

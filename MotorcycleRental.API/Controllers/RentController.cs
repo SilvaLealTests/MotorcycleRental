@@ -8,27 +8,27 @@ using MotorcycleRental.Domain.Constants;
 
 namespace MotorcycleRental.API.Controllers
 {
-    [Authorize(Roles = UserRoles.Biker)]
+    [Authorize(Roles = UserRoles.Biker)]    
     [Route("api/rent")]
     [ApiController]
     public class RentController(IMediator mediator) : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> Create(CreateRentCommand commad) { 
+        public async Task<IActionResult> Create([FromBody] CreateRentCommand commad) { 
             var id = await mediator.Send(commad);
             return CreatedAtAction(nameof(GetById), new { id }, null);
         }
 
         
-        [HttpGet("checkRentValue")]
-        public async Task<ActionResult> CheckValue(CheckRentValueQuery query)
+        [HttpGet("checkRentValue/{previewDate}")]
+        public async Task<ActionResult> CheckValue([FromRoute] DateOnly previewDate)
         {
-            var result = await mediator.Send(query);
+            var result = await mediator.Send(new CheckRentValueQuery(previewDate));
 
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}")]        
         public async Task<ActionResult> GetById(int id)
         {
             var rent = await mediator.Send(new GetRentByIdQuery(id));

@@ -167,14 +167,16 @@ namespace MotorcycleRental.Infrastructure.Seeders
                     Description = "Honda CB 300",
                     Model = 2022,
                     Year =  2023,
-                    LicensePlate = "ABC-1A23"
+                    LicensePlate = "ABC-1234",
+                    Status = "A"
                 },
                 new()
                 {
                     Description = "Yamaha Factor 125",
                     Model = 2020,
                     Year =  2021,
-                    LicensePlate = "ABC-1B23"
+                    LicensePlate = "ABC-1B23",
+                    Status = "A"
                 }
                 ];
             return motorcycles;

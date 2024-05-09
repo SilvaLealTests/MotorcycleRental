@@ -31,6 +31,8 @@ namespace MotorcycleRental.Application.Rents.Queries.GetRentById
             }
 
             var rent = await rentsRepository.GetByIdAndByBikerIdAsync(request.Id, biker.Id);
+            if(rent == null)
+                throw new NotFoundException(nameof(Rent), $"Rent Not Found for user:{currentUser.Email} (Biker CNH:{biker.CNH})");
 
             var rentDto = mapper.Map<RentDto>( rent );
 

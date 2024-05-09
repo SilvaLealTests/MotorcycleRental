@@ -18,7 +18,7 @@ namespace MotorcycleRental.Application.Motorcycles.Queries.GetAllMotorcycleActiv
         {
             logger.LogInformation("Getting all actives motorcycles");
 
-            var (motorcycles, totalCount) = await repository.GetAllOrByLicensePlateAsync(
+            var (motorcycles, totalCount) = await repository.GetAllActivesMotorcyclesAsync(
                 request.seach,
                 request.PageSize,
                 request.PageNumber,

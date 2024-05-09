@@ -77,9 +77,9 @@ namespace MotorcycleRental.API.Controllers
 
         [HttpGet("getActives")]
         [Authorize(Roles = $"{UserRoles.Admin},{UserRoles.Biker}")]
-        public async Task<ActionResult> GetActives()
+        public async Task<ActionResult> GetActives([FromQuery] GetAllActivesMotorcyclesQuery query)
         {
-            var motorcycle = await mediator.Send(new GetAllActivesMotorcyclesQuery());            
+            var motorcycle = await mediator.Send(query);            
 
             return Ok(motorcycle);
         }
