@@ -1,15 +1,32 @@
-﻿using Amazon.S3.Model;
-using Amazon.S3;
+﻿using Amazon.S3;
+using Amazon.S3.Model;
 using MediatR;
-using static System.Net.Mime.MediaTypeNames;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using MotorcycleRental.Application.Users;
+using MotorcycleRental.Domain.Entities;
+using MotorcycleRental.Domain.Exceptions;
+using MotorcycleRental.Domain.Repositories;
 
 namespace MotorcycleRental.Application.Bikers.Commands
 {
-    public class SendCNHImageCommandHandler(IAmazonS3 s3Client) : IRequestHandler<SendCNHImageCommand, bool>
+    public class SendCNHImageCommandHandler(
+        IAmazonS3 s3Client,
+        IBikersRepository bikersRepository,
+        ILogger<SendCNHImageCommandHandler> logger,
+        IUserContext userContext,
+        IConfiguration config
+        ) : IRequestHandler<SendCNHImageCommand, bool>
     {
-        private const string bucketName = "motorcycle-rent-temp";
         public async Task<bool> Handle(SendCNHImageCommand request, CancellationToken cancellationToken)
         {
+            //Verify if the userContext is a Biker
+            var currentUser = userContext.GetCurrentUser();
+
+            var biker = await bikersRepository.GetByUserIdAsync(currentUser.Id);
+            if (biker == null)
+                throw new NotFoundException(nameof(Biker), $"Biker not found for email: {currentUser.Email}");
+
 
             if (request.CNHImage == null || (request.CNHImage.ContentType != "image/png" && request.CNHImage.ContentType != "image/bmp"))
             {
@@ -23,13 +40,18 @@ namespace MotorcycleRental.Application.Bikers.Commands
                 stream.Position = 0;
                 var requestAWS = new PutObjectRequest
                 {
-                    BucketName = bucketName,
+                    BucketName = config["S3Bucket"],
                     Key = key,
                     InputStream = stream,
                     ContentType = request.CNHImage.ContentType
                 };
                 await s3Client.PutObjectAsync(requestAWS);
             }
+
+            //insert image reference to Biker
+            biker.CHNImg = key;
+
+            await bikersRepository.SaveChanges();            
 
             return true;
 

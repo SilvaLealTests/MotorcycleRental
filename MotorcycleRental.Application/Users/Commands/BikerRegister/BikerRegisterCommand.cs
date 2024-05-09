@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
-using MotorcycleRental.Application.Users.Dtos;
+using MotorcycleRental.Application.Bikers.Dtos;
 using MotorcycleRental.Domain.Entities;
 
 namespace MotorcycleRental.Application.Users.Commands.BikerRegister

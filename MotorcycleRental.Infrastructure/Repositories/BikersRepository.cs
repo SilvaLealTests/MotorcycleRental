@@ -20,5 +20,7 @@ namespace MotorcycleRental.Infrastructure.Repositories
 
             return biker;
         }
+
+        public Task SaveChanges() => dbContext.SaveChangesAsync();
     }
 }

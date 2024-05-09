@@ -1,9 +1,8 @@
+using MotorcycleRental.API.Extensions;
 using MotorcycleRental.API.Middlewares;
 using MotorcycleRental.Application.Extensions;
-using MotorcycleRental.Domain.Entities;
 using MotorcycleRental.Infrastructure.Extensions;
 using MotorcycleRental.Infrastructure.Seeders;
-using MotorcycleRental.API.Extensions; 
 
 try
 {

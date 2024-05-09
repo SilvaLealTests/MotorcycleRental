@@ -1,6 +1,6 @@
-﻿using MotorcycleRental.Application.Motorcycles.Dtos;
+﻿using MotorcycleRental.Application.Bikers.Dtos;
+using MotorcycleRental.Application.Motorcycles.Dtos;
 using MotorcycleRental.Application.RentPlans.Dtos;
-using MotorcycleRental.Application.Users.Dtos;
 using MotorcycleRental.Domain.Entities;
 
 namespace MotorcycleRental.Application.Rents.Dtos

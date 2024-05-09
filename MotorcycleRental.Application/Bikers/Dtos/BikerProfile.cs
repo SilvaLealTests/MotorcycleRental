@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MotorcycleRental.Domain.Entities;
 
-namespace MotorcycleRental.Application.Users.Dtos
+namespace MotorcycleRental.Application.Bikers.Dtos
 {
     public class BikerProfile : Profile
     {

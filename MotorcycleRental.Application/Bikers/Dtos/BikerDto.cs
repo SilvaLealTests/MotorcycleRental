@@ -2,11 +2,11 @@
 using MotorcycleRental.Domain.Entities;
 using System.Text.Json.Serialization;
 
-namespace MotorcycleRental.Application.Users.Dtos
+namespace MotorcycleRental.Application.Bikers.Dtos
 {
     public class BikerDto
     {
-        [JsonIgnore]
+
         public int Id { get; set; }
         public string CNPJ { get; set; } = default!;
 
@@ -17,6 +17,8 @@ namespace MotorcycleRental.Application.Users.Dtos
         public CNHTypes CNHType { get; set; }
 
         public string? CHNImg { get; set; }
+
+        public string? CNHUrl { get; set; }
 
     }
 }
