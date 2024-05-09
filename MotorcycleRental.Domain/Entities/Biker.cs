@@ -20,11 +20,12 @@ namespace MotorcycleRental.Domain.Entities
 
         public string? CHNImg { get; set; }
 
-        public List<Rent> Rents { get; set; } = new();
+        public List<Rent> Rents { get; set; } = [];
 
         public User User { get; set; }
 
         public string UserId { get; set; }
+
 
 
     }

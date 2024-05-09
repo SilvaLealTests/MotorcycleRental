@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 namespace MotorcycleRental.API.Controllers
 {
     [Authorize(Roles = UserRoles.Biker)]
-    [Route("api/[controller]")]
+    [Route("api/bikers")]
     [ApiController]    
     public class BikersController(IMediator mediator) : ControllerBase
     {

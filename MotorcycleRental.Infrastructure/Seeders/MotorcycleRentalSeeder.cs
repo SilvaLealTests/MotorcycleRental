@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using MotorcycleRental.Domain.Constants;
 using MotorcycleRental.Domain.Entities;
 using MotorcycleRental.Infrastructure.Persistence;
@@ -12,6 +13,12 @@ namespace MotorcycleRental.Infrastructure.Seeders
     {
         public async Task Seed()
         {
+            if (dbContext.Database.GetPendingMigrations().Any())
+            {
+                await dbContext.Database.MigrateAsync();
+            }
+
+
             if (await dbContext.Database.CanConnectAsync())
             {
 
@@ -29,10 +36,10 @@ namespace MotorcycleRental.Infrastructure.Seeders
 
                 }
 
-                if (!dbContext.RentalPlans.Any())
+                if (!dbContext.RentPlans.Any())
                 {
                     var rentalPlans = getRentalPlans();
-                    dbContext.RentalPlans.AddRange(rentalPlans);
+                    dbContext.RentPlans.AddRange(rentalPlans);
                     await dbContext.SaveChangesAsync();
                 }
 
@@ -41,9 +48,7 @@ namespace MotorcycleRental.Infrastructure.Seeders
                     var motorcycles = getMotorcycles();
                     dbContext.Motorcycles.AddRange(motorcycles);
                     await dbContext.SaveChangesAsync();
-                }
-
-
+                }                
             }
         }
 

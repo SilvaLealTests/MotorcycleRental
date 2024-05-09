@@ -69,7 +69,7 @@ namespace MotorcycleRental.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RentalPlans",
+                name: "RentPlans",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -80,7 +80,7 @@ namespace MotorcycleRental.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RentalPlans", x => x.Id);
+                    table.PrimaryKey("PK_RentPlans", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -235,19 +235,19 @@ namespace MotorcycleRental.Infrastructure.Migrations
                         column: x => x.BikerId,
                         principalTable: "Bikers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Rents_Motorcycles_MotorcycleId",
                         column: x => x.MotorcycleId,
                         principalTable: "Motorcycles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Rents_RentalPlans_RentPlanId",
+                        name: "FK_Rents_RentPlans_RentPlanId",
                         column: x => x.RentPlanId,
-                        principalTable: "RentalPlans",
+                        principalTable: "RentPlans",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -357,7 +357,7 @@ namespace MotorcycleRental.Infrastructure.Migrations
                 name: "Motorcycles");
 
             migrationBuilder.DropTable(
-                name: "RentalPlans");
+                name: "RentPlans");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

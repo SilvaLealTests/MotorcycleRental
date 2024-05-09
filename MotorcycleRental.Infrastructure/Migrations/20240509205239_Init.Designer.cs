@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MotorcycleRental.Infrastructure.Migrations
 {
     [DbContext(typeof(MotorcycleRentalDbContext))]
-    [Migration("20240509111651_Init")]
+    [Migration("20240509205239_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -295,7 +295,7 @@ namespace MotorcycleRental.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RentalPlans");
+                    b.ToTable("RentPlans");
                 });
 
             modelBuilder.Entity("MotorcycleRental.Domain.Entities.User", b =>
@@ -429,19 +429,19 @@ namespace MotorcycleRental.Infrastructure.Migrations
                     b.HasOne("MotorcycleRental.Domain.Entities.Biker", "Biker")
                         .WithMany("Rents")
                         .HasForeignKey("BikerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MotorcycleRental.Domain.Entities.Motorcycle", "Motorcycle")
-                        .WithMany()
+                        .WithMany("Rents")
                         .HasForeignKey("MotorcycleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MotorcycleRental.Domain.Entities.RentPlan", "RentPlan")
-                        .WithMany()
+                        .WithMany("Rents")
                         .HasForeignKey("RentPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Biker");
@@ -452,6 +452,16 @@ namespace MotorcycleRental.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("MotorcycleRental.Domain.Entities.Biker", b =>
+                {
+                    b.Navigation("Rents");
+                });
+
+            modelBuilder.Entity("MotorcycleRental.Domain.Entities.Motorcycle", b =>
+                {
+                    b.Navigation("Rents");
+                });
+
+            modelBuilder.Entity("MotorcycleRental.Domain.Entities.RentPlan", b =>
                 {
                     b.Navigation("Rents");
                 });

@@ -19,6 +19,8 @@ public class CreateMotorcycleCommandHandler(
 
         int id = await repository.Create(motorcycle);
 
+        //Generate Event to Message Broker RabbitMQ...
+
         return id;
     }
 }

@@ -10,8 +10,8 @@ namespace MotorcycleRental.API.Controllers
 {
     [Authorize(Roles = UserRoles.Admin)]
     [ApiController]
-    [Route("api/identity")]
-    public class IdentityController(IMediator mediator) : ControllerBase
+    [Route("api/identities")]
+    public class IdentitiesController(IMediator mediator) : ControllerBase
     {
         [AllowAnonymous]
         [HttpPost("bikerRegister")]        

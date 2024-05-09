@@ -140,6 +140,7 @@ namespace MotorcycleRental.Infrastructure.Repositories
                 { nameof(Motorcycle.Model), r => r.Model},
                 { nameof(Motorcycle.Year), r => r.Year},
                 { nameof(Motorcycle.LicensePlate), r => r.LicensePlate },
+                { nameof(Motorcycle.Id), r => r.Id },
             };
 
                 var selectedColumn = columnsSelector[sortBy];

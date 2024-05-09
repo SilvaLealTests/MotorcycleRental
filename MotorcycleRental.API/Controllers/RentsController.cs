@@ -9,9 +9,9 @@ using MotorcycleRental.Domain.Constants;
 namespace MotorcycleRental.API.Controllers
 {
     [Authorize(Roles = UserRoles.Biker)]    
-    [Route("api/rent")]
+    [Route("api/rents")]
     [ApiController]
-    public class RentController(IMediator mediator) : ControllerBase
+    public class RentsController(IMediator mediator) : ControllerBase
     {
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateRentCommand commad) { 

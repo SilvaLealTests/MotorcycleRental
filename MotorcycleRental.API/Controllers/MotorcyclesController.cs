@@ -12,9 +12,9 @@ using MotorcycleRental.Domain.Constants;
 namespace MotorcycleRental.API.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/motorcycles")]
     [ApiController]
-    public class MotorcycleController(IMediator mediator) : ControllerBase
+    public class MotorcyclesController(IMediator mediator) : ControllerBase
     {
 
         // GET: api/<MotorcycleController>

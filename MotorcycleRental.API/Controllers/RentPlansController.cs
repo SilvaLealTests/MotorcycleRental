@@ -13,10 +13,10 @@ using MotorcycleRental.Domain.Constants;
 
 namespace MotorcycleRental.API.Controllers
 {
-    
-    [Route("api/[controller]")]
+    [Authorize(Roles = UserRoles.Admin)]
+    [Route("api/rentPlans")]
     [ApiController]
-    public class RentalPlansController(IMediator mediator) : ControllerBase
+    public class RentPlansController(IMediator mediator) : ControllerBase
     {
         [Authorize(Roles = $"{UserRoles.Admin},{UserRoles.Biker}")]       
         [HttpGet]
