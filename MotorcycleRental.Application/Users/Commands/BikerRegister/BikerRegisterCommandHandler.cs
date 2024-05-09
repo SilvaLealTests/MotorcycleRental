@@ -8,7 +8,7 @@ using MotorcycleRental.Domain.Repositories;
 namespace MotorcycleRental.Application.Users.Commands.BikerRegister
 {
     public class BikerRegisterCommandHandler(
-        IUserRepository repository,
+        IUsersRepository repository,
         ILogger<BikerRegisterCommandHandler> logger,
         IUserStore<User> userStore,
         IMapper mapper

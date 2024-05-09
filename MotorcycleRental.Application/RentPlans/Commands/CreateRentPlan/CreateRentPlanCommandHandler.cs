@@ -7,7 +7,7 @@ using MotorcycleRental.Domain.Repositories;
 namespace MotorcycleRental.Application.RentPlans.Commands.CreateRentPlan
 {
     public class CreateRentPlanCommandHandler(
-        IRentalPlansRepository repository,
+        IRentPlansRepository repository,
         ILogger<CreateRentPlanCommandHandler> logger,
         IMapper mapper
         ) : IRequestHandler<CreateRentPlanCommand, int>

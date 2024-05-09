@@ -1,4 +1,6 @@
-﻿namespace MotorcycleRental.Application.Motorcycles.Dtos
+﻿using System.Text.Json.Serialization;
+
+namespace MotorcycleRental.Application.Motorcycles.Dtos
 {
     public class MotorcycleDto
     {
@@ -9,5 +11,7 @@
         public string Model { get; set; } = default!;
 
         public string LicensePlate { get; set; } = default!;
+
+        public string Status { get; set; } = default!;
     }
 }

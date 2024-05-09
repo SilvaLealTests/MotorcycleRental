@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace MotorcycleRental.Infrastructure.Repositories
 {
-    internal class MotocyclesRepository(MotorcycleRentalDbContext dbContext) : IMotocyclesRepository
+    internal class MotorcyclesRepository(MotorcycleRentalDbContext dbContext) : IMotorcyclesRepository
     {
         public async Task<int> Create(Motorcycle entity)
         {
@@ -19,6 +19,51 @@ namespace MotorcycleRental.Infrastructure.Repositories
         {
             dbContext.Motorcycles.Remove(entity);
             await dbContext.SaveChangesAsync();
+        }
+
+        public async Task<(IEnumerable<Motorcycle>, int)> GetAllActivesMotorcyclesAsync(
+            string? searchPhrase,
+            int pageSize,
+            int pageNumber,
+            string? sortBy,
+            SortDirection sortDirection
+            )
+        {
+            var searchPhraseLower = searchPhrase?.ToLower();
+
+            var baseQuery = dbContext
+                .Motorcycles
+                .Where(r => searchPhraseLower == null || (r.LicensePlate.ToLower().Contains(searchPhraseLower)
+                                                       || r.Model.ToString().Contains(searchPhraseLower)
+                                                       || r.Year.ToString().Contains(searchPhraseLower))
+                                                       
+                                                       && r.Status == "A");
+
+            var totalCount = await baseQuery.CountAsync();
+
+            if (sortBy != null)
+            {
+                var columnsSelector = new Dictionary<string, Expression<Func<Motorcycle, object>>>
+            {
+                    { nameof(Motorcycle.Id), r => r.Id},
+                { nameof(Motorcycle.Model), r => r.Model},
+                { nameof(Motorcycle.Year), r => r.Year},
+                { nameof(Motorcycle.LicensePlate), r => r.LicensePlate },
+            };
+
+                var selectedColumn = columnsSelector[sortBy];
+
+                baseQuery = sortDirection == SortDirection.Ascending
+                    ? baseQuery.OrderBy(selectedColumn)
+                    : baseQuery.OrderByDescending(selectedColumn);
+            }
+
+            var motorcycles = await baseQuery
+                .Skip(pageSize * (pageNumber - 1))
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (motorcycles, totalCount);
         }
 
         public async Task<IEnumerable<Motorcycle>> GetAllAsync()

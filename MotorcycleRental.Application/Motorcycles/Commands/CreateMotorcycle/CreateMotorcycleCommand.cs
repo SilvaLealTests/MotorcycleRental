@@ -10,5 +10,7 @@ namespace MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycle
         public int Model { get; set; } = default!;
 
         public string LicensePlate { get; set; } = default!;
+
+        public string Status { get; set; } = default!;
     }
 }

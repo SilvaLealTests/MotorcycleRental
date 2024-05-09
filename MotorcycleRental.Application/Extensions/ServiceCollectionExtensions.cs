@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using MotorcycleRental.Application.Auth.Services;
 using MotorcycleRental.Application.Users;
 
 namespace MotorcycleRental.Application.Extensions
@@ -19,6 +20,7 @@ namespace MotorcycleRental.Application.Extensions
                 .AddFluentValidationAutoValidation();
 
             services.AddScoped<IUserContext,UserContext>();
+            services.AddScoped<ITokenService, TokenService>();
 
             services.AddHttpContextAccessor();
         }

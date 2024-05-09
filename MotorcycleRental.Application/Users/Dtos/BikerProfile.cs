@@ -8,6 +8,7 @@ namespace MotorcycleRental.Application.Users.Dtos
         public BikerProfile()
         {
             CreateMap<BikerDto, Biker>();
+            CreateMap<Biker, BikerDto>();
         }
     }
 }

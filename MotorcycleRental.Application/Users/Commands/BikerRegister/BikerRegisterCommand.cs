@@ -7,9 +7,8 @@ namespace MotorcycleRental.Application.Users.Commands.BikerRegister
 {
     public class BikerRegisterCommand : IRequest<bool>
     {
-        public string Email { get; set; }
-
-        public string Password { get; set; }
+        public string Email { get; set; } = default!;
+        public string Password { get; set; } = default!;
         public BikerDto BikerDto { get; set; } = new();
     }
 }

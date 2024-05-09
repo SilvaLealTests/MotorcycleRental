@@ -23,6 +23,10 @@ internal class MotorcycleRentalDbContext(DbContextOptions<MotorcycleRentalDbCont
         .HasIndex(u => u.LicensePlate)
         .IsUnique();
 
+        modelBuilder.Entity<Motorcycle>()
+            .Property(entity => entity.Status)
+            .HasComment("Available Values: A=Active, R=Rented, S=Stopped");
+
         modelBuilder.Entity<Biker>()
             .HasIndex(u => u.CNPJ)
             .IsUnique();

@@ -3,7 +3,7 @@ using MotorcycleRental.Domain.Entities;
 
 namespace MotorcycleRental.Domain.Repositories
 {
-    public interface IUserRepository
+    public interface IUsersRepository
     {
           Task<bool> InsertBiker(User entity, string password,Biker biker);
 

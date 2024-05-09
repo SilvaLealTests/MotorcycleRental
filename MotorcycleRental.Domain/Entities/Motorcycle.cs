@@ -20,4 +20,7 @@ public class Motorcycle
     [Required]
     [MaxLength(10)]    
     public string LicensePlate { get; set; } = default!;
+
+    [Required]
+    public string Status { get; set; } = default!;
 }

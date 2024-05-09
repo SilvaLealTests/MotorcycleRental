@@ -6,7 +6,7 @@ using MotorcycleRental.Domain.Repositories;
 namespace MotorcycleRental.Application.Users.Commands.AdminRegister
 {
     public class AdminRegisterCommandHandler(
-        IUserRepository respository,
+        IUsersRepository respository,
         ILogger<AdminRegisterCommandHandler> logger
         ) : IRequestHandler<AdminRegisterCommand,bool>
     {
