@@ -9,7 +9,7 @@ using MotorcycleRental.Infrastructure.Repositories;
 namespace MotorcycleRental.Application.Motorcycles.Queries.GetMotorcycleById
 {
     public class GetMotorcycleByIdQueryHandler(
-        IMotocyclesRepository repository,
+        IMotorcyclesRepository repository,
     ILogger<GetMotorcycleByIdQueryHandler> logger,
     IMapper mapper
         ) : IRequestHandler<GetMotorcycleByIdQuery, MotorcycleDto>

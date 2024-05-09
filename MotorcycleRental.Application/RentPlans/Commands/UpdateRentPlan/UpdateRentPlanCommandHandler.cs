@@ -8,7 +8,7 @@ using MotorcycleRental.Domain.Repositories;
 namespace MotorcycleRental.Application.RentPlans.Commands.UpdateRentPlan
 {
     public class UpdateRentPlanCommandHandler(
-         IRentalPlansRepository repository,
+         IRentPlansRepository repository,
         ILogger<UpdateRentPlanCommandHandler> logger,
         IMapper mapper
         ) : IRequestHandler<UpdateRentPlanCommand>

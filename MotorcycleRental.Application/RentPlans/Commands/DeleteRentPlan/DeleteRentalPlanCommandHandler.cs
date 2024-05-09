@@ -8,7 +8,7 @@ using MotorcycleRental.Domain.Repositories;
 namespace MotorcycleRental.Application.RentPlans.Commands.DeleteRentPlan
 {
     public class DeleteRentalPlanCommandHandler(
-        IRentalPlansRepository repository,
+        IRentPlansRepository repository,
         ILogger<DeleteRentalPlanCommandHandler> logger,
         IMapper mapper
         ) : IRequestHandler<DeleteRentalPlanCommand>

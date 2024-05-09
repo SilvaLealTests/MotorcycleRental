@@ -24,6 +24,8 @@ namespace MotorcycleRental.Domain.Entities
 
         public User User { get; set; }
 
+        public string UserId { get; set; }
+
 
     }
 }

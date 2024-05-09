@@ -7,7 +7,7 @@ using MotorcycleRental.Domain.Repositories;
 namespace MotorcycleRental.Application.RentalPlans.Queries.GetRentalPlanById
 {
     public class GetRentalPlanByIdQueryHandler(
-        IRentalPlansRepository repository,
+        IRentPlansRepository repository,
         ILogger<GetRentalPlanByIdQueryHandler> logger,
         IMapper mapper
         ) : IRequestHandler<GetRentalPlanByIdQuery, RentPlanDto>

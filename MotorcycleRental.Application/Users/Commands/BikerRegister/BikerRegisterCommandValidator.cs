@@ -7,7 +7,7 @@ namespace MotorcycleRental.Application.Users.Commands.BikerRegister
     public class BikerRegisterCommandValidator : AbstractValidator<BikerRegisterCommand>
     {
         
-        private readonly List<string?> validCNHTypes = ["A", "B", "AB"];
+        private readonly List<string?> ValidCNHTypes = ["A", "B", "AB"];
 
         public BikerRegisterCommandValidator()
         {           

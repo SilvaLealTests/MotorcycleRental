@@ -180,6 +180,7 @@ namespace MotorcycleRental.Infrastructure.Migrations
                         .HasColumnType("date");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -214,6 +215,11 @@ namespace MotorcycleRental.Infrastructure.Migrations
                     b.Property<int>("Model")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasComment("Available Values: A=Active, R=Rented, S=Stopped");
+
                     b.Property<int>("Year")
                         .HasColumnType("integer");
 
@@ -236,20 +242,23 @@ namespace MotorcycleRental.Infrastructure.Migrations
                     b.Property<int>("BikerId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("FinalDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly?>("FinalDate")
+                        .HasColumnType("date");
 
-                    b.Property<DateTime>("InitialDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("InitialDate")
+                        .HasColumnType("date");
 
                     b.Property<int>("MotorcycleId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("PreviewDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("PreviewDate")
+                        .HasColumnType("date");
 
-                    b.Property<int>("RentalPlanId")
+                    b.Property<int>("RentPlanId")
                         .HasColumnType("integer");
+
+                    b.Property<decimal?>("Total")
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
@@ -257,12 +266,12 @@ namespace MotorcycleRental.Infrastructure.Migrations
 
                     b.HasIndex("MotorcycleId");
 
-                    b.HasIndex("RentalPlanId");
+                    b.HasIndex("RentPlanId");
 
                     b.ToTable("Rents");
                 });
 
-            modelBuilder.Entity("MotorcycleRental.Domain.Entities.RentalPlan", b =>
+            modelBuilder.Entity("MotorcycleRental.Domain.Entities.RentPlan", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -405,7 +414,9 @@ namespace MotorcycleRental.Infrastructure.Migrations
                 {
                     b.HasOne("MotorcycleRental.Domain.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -424,9 +435,9 @@ namespace MotorcycleRental.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MotorcycleRental.Domain.Entities.RentalPlan", "RentalPlan")
+                    b.HasOne("MotorcycleRental.Domain.Entities.RentPlan", "RentPlan")
                         .WithMany()
-                        .HasForeignKey("RentalPlanId")
+                        .HasForeignKey("RentPlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -434,7 +445,7 @@ namespace MotorcycleRental.Infrastructure.Migrations
 
                     b.Navigation("Motorcycle");
 
-                    b.Navigation("RentalPlan");
+                    b.Navigation("RentPlan");
                 });
 
             modelBuilder.Entity("MotorcycleRental.Domain.Entities.Biker", b =>

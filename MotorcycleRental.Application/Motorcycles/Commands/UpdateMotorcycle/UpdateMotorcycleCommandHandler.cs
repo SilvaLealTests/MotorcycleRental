@@ -9,7 +9,7 @@ using MotorcycleRental.Infrastructure.Repositories;
 namespace MotorcycleRental.Application.Motorcycles.Commands.UpdateMotorcycle
 {
     public class UpdateMotorcycleCommandHandler(
-    IMotocyclesRepository repository,
+    IMotorcyclesRepository repository,
     ILogger<CreateMotorcycleCommandHandler> logger,
     IMapper mapper) : IRequestHandler<UpdateMotorcycleCommand>
     {

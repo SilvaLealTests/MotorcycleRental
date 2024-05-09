@@ -60,7 +60,8 @@ namespace MotorcycleRental.Infrastructure.Migrations
                     Year = table.Column<int>(type: "integer", nullable: false),
                     Model = table.Column<int>(type: "integer", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
-                    LicensePlate = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false)
+                    LicensePlate = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
+                    Status = table.Column<string>(type: "text", nullable: false, comment: "Available Values: A=Active, R=Rented, S=Stopped")
                 },
                 constraints: table =>
                 {
@@ -199,7 +200,7 @@ namespace MotorcycleRental.Infrastructure.Migrations
                     CNH = table.Column<string>(type: "text", nullable: false),
                     CNHType = table.Column<int>(type: "integer", nullable: false),
                     CHNImg = table.Column<string>(type: "text", nullable: true),
-                    UserId = table.Column<string>(type: "text", nullable: true)
+                    UserId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -208,7 +209,8 @@ namespace MotorcycleRental.Infrastructure.Migrations
                         name: "FK_Bikers_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -217,12 +219,13 @@ namespace MotorcycleRental.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    RentalPlanId = table.Column<int>(type: "integer", nullable: false),
+                    RentPlanId = table.Column<int>(type: "integer", nullable: false),
                     BikerId = table.Column<int>(type: "integer", nullable: false),
                     MotorcycleId = table.Column<int>(type: "integer", nullable: false),
-                    InitialDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    FinalDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    PreviewDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    InitialDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    FinalDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    PreviewDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    Total = table.Column<decimal>(type: "numeric", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -240,8 +243,8 @@ namespace MotorcycleRental.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Rents_RentalPlans_RentalPlanId",
-                        column: x => x.RentalPlanId,
+                        name: "FK_Rents_RentalPlans_RentPlanId",
+                        column: x => x.RentPlanId,
                         principalTable: "RentalPlans",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -285,6 +288,18 @@ namespace MotorcycleRental.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Bikers_CNH",
+                table: "Bikers",
+                column: "CNH",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bikers_CNPJ",
+                table: "Bikers",
+                column: "CNPJ",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Bikers_UserId",
                 table: "Bikers",
                 column: "UserId");
@@ -306,9 +321,9 @@ namespace MotorcycleRental.Infrastructure.Migrations
                 column: "MotorcycleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rents_RentalPlanId",
+                name: "IX_Rents_RentPlanId",
                 table: "Rents",
-                column: "RentalPlanId");
+                column: "RentPlanId");
         }
 
         /// <inheritdoc />
