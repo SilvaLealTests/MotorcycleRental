@@ -8,6 +8,8 @@ namespace MotorcycleRental.Domain.Repositories
 
         Task<Biker?> GetByUserIdAsync(string UserId);
 
+        Task<IEnumerable<Biker>> GetBikerByCNPJOrCNH(Biker entity);
+
         Task SaveChanges();
     }
 }

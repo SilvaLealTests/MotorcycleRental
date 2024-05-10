@@ -11,6 +11,7 @@ namespace MotorcycleRental.API.Controllers
     [Authorize(Roles = UserRoles.Admin)]
     [ApiController]
     [Route("api/identities")]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public class IdentitiesController(IMediator mediator) : ControllerBase
     {
         [AllowAnonymous]

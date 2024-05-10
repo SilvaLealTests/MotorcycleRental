@@ -195,10 +195,10 @@ namespace MotorcycleRental.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CNPJ = table.Column<string>(type: "text", nullable: false),
+                    CNPJ = table.Column<string>(type: "character varying(18)", maxLength: 18, nullable: false),
                     DateOfBirth = table.Column<DateOnly>(type: "date", nullable: false),
-                    CNH = table.Column<string>(type: "text", nullable: false),
-                    CNHType = table.Column<int>(type: "integer", nullable: false),
+                    CNH = table.Column<string>(type: "character varying(11)", maxLength: 11, nullable: false),
+                    CNHType = table.Column<string>(type: "character varying(2)", maxLength: 2, nullable: false),
                     CHNImg = table.Column<string>(type: "text", nullable: true),
                     UserId = table.Column<string>(type: "text", nullable: false)
                 },

@@ -9,6 +9,8 @@ namespace MotorcycleRental.Application.Bikers.Dtos
         {
             CreateMap<BikerDto, Biker>();
             CreateMap<Biker, BikerDto>();
+
+            CreateMap<CreateBikerDto, Biker>();
         }
     }
 }

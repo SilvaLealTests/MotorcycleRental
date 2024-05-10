@@ -22,7 +22,7 @@ namespace MotorcycleRental.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpGet("bikerInfo")]
         public async Task<IActionResult> GetRegister()
         {
             var biker = await mediator.Send(new GetRegisterQuery());

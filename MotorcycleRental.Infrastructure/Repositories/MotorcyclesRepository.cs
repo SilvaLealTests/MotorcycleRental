@@ -33,9 +33,9 @@ namespace MotorcycleRental.Infrastructure.Repositories
 
             var baseQuery = dbContext
                 .Motorcycles
-                .Where(r => searchPhraseLower == null || (r.LicensePlate.ToLower().Contains(searchPhraseLower)
+                .Where(r => (searchPhraseLower == null || (r.LicensePlate.ToLower().Contains(searchPhraseLower)
                                                        || r.Model.ToString().Contains(searchPhraseLower)
-                                                       || r.Year.ToString().Contains(searchPhraseLower))
+                                                       || r.Year.ToString().Contains(searchPhraseLower)))
                                                        
                                                        && r.Status == "A");
 

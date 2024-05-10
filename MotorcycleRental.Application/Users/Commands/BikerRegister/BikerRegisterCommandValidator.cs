@@ -13,38 +13,29 @@ namespace MotorcycleRental.Application.Users.Commands.BikerRegister
         {           
 
             RuleFor(dto => dto.Email).EmailAddress();
-            // Password validation rule
-            //RuleFor(x => x.Password)
-            //    .MustAsync(async (password, cancellation) => await BeAValidPassword(password))
-            //    .WithMessage("Password does not meet security requirements.");
-            //RuleFor(dto => dto.Biker).NotEmpty();
+           
+            RuleFor(dto => dto.CreateBikerDto).NotNull();
 
-            // RuleFor(dto => dto.Biker.CNH)                
-            //     .Matches(@"^\d{11}$")
-            //     .WithMessage("Invalid CHN. Please provide 11 numbers, only numbers for CHN (999999999)");
+            RuleFor(dto => dto.CreateBikerDto.CNH)
+                .Matches(@"^\d{11}$")
+                .WithMessage("Invalid CHN. Please provide 11 numbers, only numbers for CHN (999999999)");
 
-            // RuleFor(dto => dto.Biker.CNPJ)
-            //     //.NotEmpty()
-            //     .Matches(@"^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$")
-            //     .WithMessage("Please provide a valid CNPJ (99.999.999/9999-99).")
-            //     .Must(BeAValidCNPJ).WithMessage("CNPJ inválido.");
+            RuleFor(dto => dto.CreateBikerDto.CNPJ)
+                //.NotEmpty()
+                .Matches(@"^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$")
+                .WithMessage("Please provide a valid CNPJ (99.999.999/9999-99).")
+                .Must(BeAValidCNPJ).WithMessage("CNPJ inválido.");
 
-            // RuleFor(dto => dto.Biker.CNHType.ToString())
-            //.Must(validCNHTypes.Contains)
-            //.WithMessage("Invalid CHNType. Please choose from the valid types(A,B or AB).");
+            RuleFor(dto => dto.CreateBikerDto.CNHType)
+           .Must(ValidCNHTypes.Contains)
+           .WithMessage("Invalid CHNType. Please choose from the valid types(A,B or AB).");
 
-            // RuleFor(dto => dto.Biker.DateOfBirth).NotEmpty();
+            RuleFor(dto => dto.CreateBikerDto.DateOfBirth)
+                .NotEmpty()
+                .LessThan(DateOnly.FromDateTime(DateTime.Now).AddYears(-18))
+                .WithMessage("Delivery driver must be over 18 years old");
         }
 
-       
-
-        //private async Task<bool> BeAValidPassword(string password)
-        //{
-        //    var fakeUser = new User(); // As we're just validating the password rules.
-        //    UserManager<User> _userManager = new UserManager<User>();
-        //    var result = await _userManager.PasswordValidators[0].ValidateAsync(_userManager, fakeUser, password);
-        //    return result.Succeeded;
-        //}
 
         private bool BeAValidCNPJ(string cnpj)
         {

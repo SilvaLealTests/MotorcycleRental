@@ -16,7 +16,14 @@ namespace MotorcycleRental.API.Middlewares
 				await context.Response.WriteAsync(notFound.Message);
 
 				logger.LogWarning(notFound.Message);
-			}
+            }
+            catch (BadRequestException badRequest)
+            {
+                context.Response.StatusCode = 400;
+                await context.Response.WriteAsync(badRequest.Message);
+
+                logger.LogWarning(badRequest.Message);
+            }
             catch (ForbidException)
             {
                 context.Response.StatusCode = 403;
@@ -26,7 +33,7 @@ namespace MotorcycleRental.API.Middlewares
 			{
 				logger.LogError(ex, ex.Message);
 				context.Response.StatusCode = 500;
-				await context.Response.WriteAsync("Something went wrong");
+				await context.Response.WriteAsync("Something went wrong");				
 			}
         }
     }

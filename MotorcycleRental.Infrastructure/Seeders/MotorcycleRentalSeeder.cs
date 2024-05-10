@@ -103,12 +103,14 @@ namespace MotorcycleRental.Infrastructure.Seeders
                     CNH = "99999999999",
                     CNPJ = "98.435.634/0001-71",
                     DateOfBirth = new DateOnly(1982, 1, 16),
-                    User = userBiker
+                    User = userBiker,
+                    CNHType = "AB"
                 };
 
                 dbContext.Bikers.Add(biker);
+                await dbContext.SaveChangesAsync();
 
-                await transaction.CommitAsync();
+                transaction.Commit();               
 
             }
             catch (Exception)

@@ -7,6 +7,12 @@ namespace MotorcycleRental.Infrastructure.Repositories
 {
     internal class BikersRepository(MotorcycleRentalDbContext dbContext) : IBikersRepository
     {
+        public async Task<IEnumerable<Biker>> GetBikerByCNPJOrCNH(Biker entity)
+        {
+            return await dbContext.Bikers.Where(b => b.CNPJ == entity.CNPJ || b.CNH == entity.CNH).ToListAsync();
+                        
+        }
+
         public async Task<Biker?> GetByIdAsync(int Id)
         {
             var biker = await dbContext.Bikers.FirstOrDefaultAsync(x => x.Id == Id);

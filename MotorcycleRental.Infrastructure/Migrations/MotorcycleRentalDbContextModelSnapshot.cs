@@ -167,14 +167,18 @@ namespace MotorcycleRental.Infrastructure.Migrations
 
                     b.Property<string>("CNH")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(11)
+                        .HasColumnType("character varying(11)");
 
-                    b.Property<int>("CNHType")
-                        .HasColumnType("integer");
+                    b.Property<string>("CNHType")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("character varying(2)");
 
                     b.Property<string>("CNPJ")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(18)
+                        .HasColumnType("character varying(18)");
 
                     b.Property<DateOnly>("DateOfBirth")
                         .HasColumnType("date");
