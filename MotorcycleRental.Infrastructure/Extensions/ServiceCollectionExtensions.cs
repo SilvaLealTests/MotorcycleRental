@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using MotorcycleRental.Application.Interfaces;
 using MotorcycleRental.Domain.Entities;
 using MotorcycleRental.Domain.Repositories;
+using MotorcycleRental.Infrastructure.MessageQueueService;
 using MotorcycleRental.Infrastructure.Persistence;
 using MotorcycleRental.Infrastructure.Repositories;
 using MotorcycleRental.Infrastructure.Seeders;
@@ -53,6 +55,11 @@ namespace MotorcycleRental.Infrastructure.Extensions
                         System.Text.Encoding.UTF8.GetBytes(configuration["JWT:SigningKey"])
                     )
                 };
+            });
+
+            services.AddSingleton<IMessageQueueService, RabbitMQService>(provider =>
+            {
+                return new RabbitMQService(configuration["ConnectionStrings:RabbitMQ"]);
             });
 
             services.AddScoped<IMotorcycleRentalSeeder, MotorcycleRentalSeeder>();

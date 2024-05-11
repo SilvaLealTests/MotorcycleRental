@@ -1,12 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MotorcycleRental.Application.RentalPlans.Queries.GetRentalPlanById;
 using MotorcycleRental.Application.RentPlans.Commands.CreateRentPlan;
 using MotorcycleRental.Application.RentPlans.Commands.DeleteRentPlan;
 using MotorcycleRental.Application.RentPlans.Commands.UpdateRentPlan;
 using MotorcycleRental.Application.RentPlans.Dtos;
 using MotorcycleRental.Application.RentPlans.Queries.GetAllRentPlans;
+using MotorcycleRental.Application.RentPlans.Queries.GetRentPlanById;
 using MotorcycleRental.Domain.Constants;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -32,7 +32,7 @@ namespace MotorcycleRental.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<RentPlanDto?>> GetById(int id)
         {
-            var rentalPlan = await mediator.Send(new GetRentalPlanByIdQuery(id));
+            var rentalPlan = await mediator.Send(new GetRentPlanByIdQuery(id));
 
             return Ok(rentalPlan);
         }

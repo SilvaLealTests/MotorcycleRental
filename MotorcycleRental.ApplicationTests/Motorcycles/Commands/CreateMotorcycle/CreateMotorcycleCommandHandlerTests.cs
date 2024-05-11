@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Moq;
+using MotorcycleRental.Application.Interfaces;
 using MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycle;
 using MotorcycleRental.Domain.Entities;
 using MotorcycleRental.Infrastructure.Repositories;
@@ -14,13 +15,16 @@ public class CreateMotorcycleCommandHandlerTests
     private readonly Mock<ILogger<CreateMotorcycleCommandHandler>> _loggerMock;
     private readonly Mock<IMapper> _mapperMock;
     private readonly CreateMotorcycleCommandHandler _handler;
+    private readonly Mock<IMessageQueueService> _messageQueueServiceMock;
 
     public CreateMotorcycleCommandHandlerTests()
     {
         _repositoryMock = new Mock<IMotorcyclesRepository>();
         _loggerMock = new Mock<ILogger<CreateMotorcycleCommandHandler>>();
         _mapperMock = new Mock<IMapper>();
-        _handler = new CreateMotorcycleCommandHandler(_repositoryMock.Object, _loggerMock.Object, _mapperMock.Object);
+        _messageQueueServiceMock = new Mock<IMessageQueueService>();
+
+        _handler = new CreateMotorcycleCommandHandler(_repositoryMock.Object, _loggerMock.Object, _mapperMock.Object, _messageQueueServiceMock.Object);
     }
 
     [Fact]

@@ -5,8 +5,7 @@ namespace MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycle
 {
     public class CreateMotorcycleCommand : IRequest<int>
     {
-        public int? Id { get; set; }
-        public string  Description { get; set; }
+       public string Description { get; set; } = default!;
         public int Year { get; set; }
 
         public int Model { get; set; } = default!;
@@ -15,6 +14,6 @@ namespace MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycle
 
         public string Status { get; set; } = default!;
 
-        public List<RentDto> Rents { get; set; } = [];
+        
     }
 }

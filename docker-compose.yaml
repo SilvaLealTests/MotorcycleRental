@@ -26,10 +26,25 @@ services:
     depends_on:
       - postgres
     networks:
-      - postgres  
+      - postgres
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - rabbitmq_motor_rent_net
+    restart: unless-stopped 
 
 networks:
   postgres:
+    driver: bridge
+  rabbitmq_motor_rent_net:
     driver: bridge
 
 volumes:
