@@ -24,7 +24,7 @@ namespace MotorcycleRental.API.Middlewares
 
                 logger.LogWarning(badRequest.Message);
             }
-            catch (ForbidException)
+            catch (ForbiddenException)
             {
                 context.Response.StatusCode = 403;
                 await context.Response.WriteAsync("Access forbidden");

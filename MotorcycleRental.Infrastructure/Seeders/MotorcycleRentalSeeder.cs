@@ -63,6 +63,7 @@ namespace MotorcycleRental.Infrastructure.Seeders
                 userAdmin.UserName = "admin@test.com";
                 userAdmin.NormalizedUserName = "admin@test.com".ToUpper();
                 userAdmin.NormalizedEmail = "admin@test.com".ToUpper();
+                userAdmin.LockoutEnabled = false;
 
                 var resultUser = await userManager.CreateAsync(userAdmin, "Password!1");
 
@@ -82,8 +83,9 @@ namespace MotorcycleRental.Infrastructure.Seeders
                     Email = "biker@test.com",
                     UserName = "biker@test.com",
                     NormalizedUserName = "biker@test.com".ToUpper(),
-                    NormalizedEmail = "biker@test.com".ToUpper()
-                };
+                    NormalizedEmail = "biker@test.com".ToUpper(),
+                    LockoutEnabled = false
+            };
 
                 resultUser = await userManager.CreateAsync(userBiker, "Password!1");
 

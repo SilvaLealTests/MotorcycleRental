@@ -8,7 +8,7 @@ namespace MotorcycleRental.Application.Motorcycles.Dtos
 
         public int Year { get; set; }
 
-        public string Model { get; set; } = default!;
+        public int Model { get; set; } = default!;
 
         public string LicensePlate { get; set; } = default!;
 

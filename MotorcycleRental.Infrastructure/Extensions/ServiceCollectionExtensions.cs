@@ -31,6 +31,7 @@ namespace MotorcycleRental.Infrastructure.Extensions
                 options.Password.RequireLowercase = true;
                 options.Password.RequireUppercase = true;
                 options.Password.RequireNonAlphanumeric = true;
+                
             }).AddEntityFrameworkStores<MotorcycleRentalDbContext>();
 
             services.AddAuthentication(options =>

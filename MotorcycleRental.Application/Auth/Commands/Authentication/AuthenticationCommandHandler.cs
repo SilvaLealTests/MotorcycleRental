@@ -22,7 +22,7 @@ public class AuthenticationCommandHandler(
         {
 
             var token = await tokenService.GenerateToken(user);
-            var refreshToken = "";// GenerateRefreshToken();
+            var refreshToken = tokenService.GenerateRefreshToken(user);
 
             return new LoginResultDto()
             {

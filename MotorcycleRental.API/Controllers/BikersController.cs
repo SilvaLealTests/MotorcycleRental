@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MotorcycleRental.Application.Bikers.Commands;
+using MotorcycleRental.Application.Bikers.Commands.SendCHNImage;
 using MotorcycleRental.Application.Bikers.Queries.GetRegister;
 using MotorcycleRental.Domain.Constants;
 using System.Runtime.CompilerServices;

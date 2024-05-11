@@ -20,3 +20,13 @@ Content-Type: application/json
 }
 
 ###
+
+POST {{MotorcycleRental.API_HostAddress}}/api/identities/login
+Content-Type: application/json
+
+{
+  "email":"amauri_leal@yahoo.com.br",
+  "password":"string"
+}
+
+###
