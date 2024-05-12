@@ -22,8 +22,14 @@ namespace MotorcycleRental.Application.Motorcycles.Commands.UpdateMotorcycle
             if (motorcycle is null)
                 throw new NotFoundException(nameof(Motorcycle), request.Id.ToString());
 
-            //if (!rentalPlanAuthorizationService.Authorize(rentalPlan, ResourceOperation.Update))
-            //    throw new ForbidException();
+            //check if the card is already registered
+            var alreadyMotocycle = await repository.GetAllOrByLicensePlateAsync(request.LicensePlate,10,1, null, 0);
+            if (alreadyMotocycle.Item2 > 0 && alreadyMotocycle.Item1.FirstOrDefault()!.Id != request.Id)
+            {
+                throw new BadRequestException($"There is already a motorcycle with this plate({request.LicensePlate}) registered");
+            }
+
+           
 
             mapper.Map(request, motorcycle);
 

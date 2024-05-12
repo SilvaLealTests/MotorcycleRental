@@ -12,6 +12,8 @@ namespace MotorcycleRental.Application.RentPlans.Dtos
 
             CreateMap<RentPlan, RentPlanDto>();
 
+            CreateMap<RentPlanDto, RentPlan>();
+
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Http.HttpResults;
 using MotorcycleRental.Domain.Exceptions;
 
 namespace MotorcycleRental.API.Middlewares
@@ -24,10 +25,11 @@ namespace MotorcycleRental.API.Middlewares
 
                 logger.LogWarning(badRequest.Message);
             }
-            catch (ForbiddenException)
+            catch (ForbiddenException forbidden)
             {
                 context.Response.StatusCode = 403;
                 await context.Response.WriteAsync("Access forbidden");
+                logger.LogWarning(forbidden.Message);
             }
             catch (Exception ex)
 			{

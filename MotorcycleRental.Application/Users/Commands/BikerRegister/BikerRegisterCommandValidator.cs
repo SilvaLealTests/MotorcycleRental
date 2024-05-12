@@ -1,6 +1,4 @@
 ﻿using FluentValidation;
-using Microsoft.AspNetCore.Identity;
-using MotorcycleRental.Domain.Entities;
 
 namespace MotorcycleRental.Application.Users.Commands.BikerRegister
 {

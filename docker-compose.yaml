@@ -39,7 +39,19 @@ services:
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
         - rabbitmq_motor_rent_net
-    restart: unless-stopped 
+    restart: unless-stopped
+  webapi:
+    image: mywebapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - .:/app
+      - ~/.aspnet/https:/https:ro
 
 networks:
   postgres:

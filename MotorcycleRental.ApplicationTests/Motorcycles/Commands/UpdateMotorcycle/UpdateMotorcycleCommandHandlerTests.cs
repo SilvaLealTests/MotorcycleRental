@@ -1,66 +1,68 @@
-﻿using Xunit;
-using MotorcycleRental.Application.Motorcycles.Commands.UpdateMotorcycle;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Moq;
 using MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycle;
 using MotorcycleRental.Domain.Entities;
 using MotorcycleRental.Domain.Exceptions;
 using MotorcycleRental.Infrastructure.Repositories;
+using Xunit;
 
 namespace MotorcycleRental.Application.Motorcycles.Commands.UpdateMotorcycle.Tests
 {
     public class UpdateMotorcycleCommandHandlerTests
     {
-        private readonly Mock<IMotorcyclesRepository> _repositoryMock;
-        private readonly Mock<ILogger<CreateMotorcycleCommandHandler>> _loggerMock;
-        private readonly Mock<IMapper> _mapperMock;
+        private readonly Mock<IMotorcyclesRepository> _mockRepository = new Mock<IMotorcyclesRepository>();
+        private readonly Mock<ILogger<CreateMotorcycleCommandHandler>> _mockLogger = new Mock<ILogger<CreateMotorcycleCommandHandler>>();
+        private readonly Mock<IMapper> _mockMapper = new Mock<IMapper>();
         private readonly UpdateMotorcycleCommandHandler _handler;
 
         public UpdateMotorcycleCommandHandlerTests()
         {
-            _repositoryMock = new Mock<IMotorcyclesRepository>();
-            _loggerMock = new Mock<ILogger<CreateMotorcycleCommandHandler>>();
-            _mapperMock = new Mock<IMapper>();
-            _handler = new UpdateMotorcycleCommandHandler(_repositoryMock.Object, _loggerMock.Object, _mapperMock.Object);
+            _handler = new UpdateMotorcycleCommandHandler(_mockRepository.Object, _mockLogger.Object, _mockMapper.Object);
         }
 
         [Fact]
-        public async Task Handle_WhenMotorcycleExists_ShouldUpdateMotorcycle()
+        public async Task Handle_SuccessfulUpdate()
         {
             // Arrange
-            var motorcycleId = 123;
-            var motorcycle = new Motorcycle();
-            var command = new UpdateMotorcycleCommand { Id = motorcycleId };
-
-            _repositoryMock.Setup(r => r.GetByIdAsync(motorcycleId)).ReturnsAsync(motorcycle);
+            var motorcycle = new Motorcycle { Id = 1, LicensePlate = "ABC123" };
+            var command = new UpdateMotorcycleCommand { Id = 1, LicensePlate = "ABC123" };
+            _mockRepository.Setup(repo => repo.GetByIdAsync(1)).ReturnsAsync(motorcycle);
+            _mockRepository.Setup(repo => repo.GetAllOrByLicensePlateAsync("ABC123", 10, 1, null, 0))
+                           .ReturnsAsync((new List<Motorcycle> { motorcycle }, 1));
+            _mockRepository.Setup(repo => repo.SaveChanges()).Returns(Task.CompletedTask);
 
             // Act
             await _handler.Handle(command, CancellationToken.None);
 
             // Assert
-            _mapperMock.Verify(m => m.Map(command, motorcycle), Times.Once);
-            _repositoryMock.Verify(r => r.SaveChanges(), Times.Once);
+            _mockRepository.Verify(repo => repo.SaveChanges(), Times.Once);
         }
 
         [Fact]
-        public async Task Handle_WhenMotorcycleDoesNotExist_ShouldThrowNotFoundException()
+        public async Task Handle_MotorcycleNotFound_ThrowsNotFoundException()
         {
             // Arrange
-            var motorcycleId = -1;
-            var command = new UpdateMotorcycleCommand { Id = motorcycleId };
-
-            _repositoryMock.Setup(r => r.GetByIdAsync(motorcycleId)).ReturnsAsync((Motorcycle)null);
+            var command = new UpdateMotorcycleCommand { Id = 99, LicensePlate = "XYZ987" };
+            _mockRepository.Setup(repo => repo.GetByIdAsync(99)).ReturnsAsync((Motorcycle)null);
 
             // Act & Assert
             await Xunit.Assert.ThrowsAsync<NotFoundException>(() => _handler.Handle(command, CancellationToken.None));
         }
 
-        
+        [Fact]
+        public async Task Handle_DuplicateLicensePlate_ThrowsBadRequestException()
+        {
+            // Arrange
+            var motorcycle = new Motorcycle { Id = 1, LicensePlate = "ABC123" };
+            var anotherMotorcycle = new Motorcycle { Id = 2, LicensePlate = "XYZ987" };
+            var command = new UpdateMotorcycleCommand { Id = 1, LicensePlate = "XYZ987" };
+            _mockRepository.Setup(repo => repo.GetByIdAsync(1)).ReturnsAsync(motorcycle);
+            _mockRepository.Setup(repo => repo.GetAllOrByLicensePlateAsync("XYZ987", 10, 1, null, 0))
+                           .ReturnsAsync((new List<Motorcycle> { anotherMotorcycle }, 1));
+
+            // Act & Assert
+            await Xunit.Assert.ThrowsAsync<BadRequestException>(() => _handler.Handle(command, CancellationToken.None));
+        }
     }
 }

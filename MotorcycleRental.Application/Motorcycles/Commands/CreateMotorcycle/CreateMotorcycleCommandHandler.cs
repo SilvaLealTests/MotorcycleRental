@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using MotorcycleRental.Application.Interfaces;
 using MotorcycleRental.Domain.Entities;
+using MotorcycleRental.Domain.Exceptions;
 using MotorcycleRental.Infrastructure.Repositories;
 
 namespace MotorcycleRental.Application.Motorcycles.Commands.CreateMotorcycle;
@@ -19,7 +20,12 @@ public class CreateMotorcycleCommandHandler(
 
         var motorcycle = mapper.Map<Motorcycle>(request);
 
-        //**criar validação para caso ja exista moto com mesma licença
+        //check if the card is already registered
+        var alreadyMotocycle = await repository.GetAllOrByLicensePlateAsync(request.LicensePlate, 1, 10, null, 0);
+        if(alreadyMotocycle.Item2 > 0)
+        {
+            throw new BadRequestException($"There is already a motorcycle with this plate({request.LicensePlate}) registered");
+        }
 
         int id = await repository.Create(motorcycle);
 

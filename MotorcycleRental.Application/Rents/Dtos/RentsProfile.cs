@@ -9,8 +9,7 @@ namespace MotorcycleRental.Application.Rents.Dtos
         public RentsProfile()
         {
             CreateMap<CreateRentCommand, Rent>();
-            CreateMap<Rent, RentDto>();
-            
+            CreateMap<Rent, RentDto>();           
 
         }
     }

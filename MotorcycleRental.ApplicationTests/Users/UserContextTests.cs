@@ -62,5 +62,7 @@ namespace MotorcycleRental.Application.Users.Tests
                 .Throw<InvalidOperationException>()
                 .WithMessage("User context is not present");
         }
+
+        
     }
 }
