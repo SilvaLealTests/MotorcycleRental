@@ -23,42 +23,61 @@ class Program
                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
         IConfiguration configuration = builder.Build();
 
-        //Setting Logger
-       Log.Logger = new LoggerConfiguration()
-            .ReadFrom.Configuration(configuration)
-            .CreateLogger();
+
+        //Setting logger Configuration
+        Log.Logger = new LoggerConfiguration()
+        .MinimumLevel.Debug()
+        .WriteTo.Console()
+        .WriteTo.File("logs/myapp.log", rollingInterval: RollingInterval.Day)
+        .CreateLogger();
+
+        Log.Information("Starting the application");
+        try
+        {
 
 
-        // Configuração de DI
-        var services = new ServiceCollection()
+            // Configuração de DI
+            var services = new ServiceCollection()
+            .AddLogging(loggingBuilder =>
+                loggingBuilder.AddSerilog(dispose: true))  // Configure Serilog as a logging provider
             .AddDbContext<MortorcycleRentMessageBrokerCusomer1DbContext>(options =>
                 options.UseNpgsql(configuration["ConnectionStrings:MotorcycleRentDb"]))
             .AddSingleton<IMotorcycle2024Repository, Motorcycle2024Repository>()
             .AddSingleton<IEmailService, EmailService>()
             .AddTransient<RabbitMQConsumer>(provider =>
-                new RabbitMQConsumer(provider.GetRequiredService<IMotorcycle2024Repository>(), 
+                new RabbitMQConsumer(provider.GetRequiredService<IMotorcycle2024Repository>(),
                 provider.GetRequiredService<IEmailService>()
-                //,provider.GetRequiredService<ILogger<RabbitMQConsumer>>(), 
+                , provider.GetRequiredService<ILogger<RabbitMQConsumer>>(),
                 "localhost", "fila_moto2024", "guest", "guest"))
             .AddTransient<RabbitMQConsumerFactory>(provider =>
-                (string hostname, string queueName, string username, string password) => provider.GetRequiredService<RabbitMQConsumer>());  // Registro do factory
+                (string hostname, string queueName, string username, string password) => provider.GetRequiredService<RabbitMQConsumer>());
 
-        var provider = services.BuildServiceProvider();
+            var provider = services.BuildServiceProvider();
 
-        // Obter DbContext
-        using (var context = provider.GetRequiredService<MortorcycleRentMessageBrokerCusomer1DbContext>())
-        {
-            // Aplica as migrations
-            DatabaseInitializer.MigrateDatabase(context);
-        
+            // Getting DbContext
+            using (var context = provider.GetRequiredService<MortorcycleRentMessageBrokerCusomer1DbContext>())
+            {
+                // applying migrations
+                DatabaseInitializer.MigrateDatabase(context);
 
-        // Usando o factory para obter o consumidor
-        var rabbitMQConsumerFactory = provider.GetRequiredService<RabbitMQConsumerFactory>();
-        var rabbitMQConsumer = rabbitMQConsumerFactory("localhost", "fila_moto2024", "guest", "guest");
 
-        // Iniciar o consumidor
-        rabbitMQConsumer.Start();
+                // Using Factory to get the consumer
+                var rabbitMQConsumerFactory = provider.GetRequiredService<RabbitMQConsumerFactory>();
+                var rabbitMQConsumer = rabbitMQConsumerFactory("localhost", "fila_moto2024", "guest", "guest");
 
+                // Start Consumer
+                rabbitMQConsumer.Start();
+
+            }
         }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Caught an exception during operation");
+        }
+
+        Log.Information("Ending the application");
+
+        // Ensure logs are finalized and downloaded
+        Log.CloseAndFlush();
     }
 }

@@ -6,6 +6,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace MotorcycleRentMessageBrokerConsumer1.Infrastructure.Services
 {
@@ -48,6 +49,7 @@ namespace MotorcycleRentMessageBrokerConsumer1.Infrastructure.Services
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
                 Console.WriteLine("Received: {0}", message);
+                _logger.LogInformation("Received: {0}", message);
                 // Process the message received here
                 var myObject = JsonConvert.DeserializeObject<Motorcycle2024>(message);
 
@@ -70,6 +72,7 @@ namespace MotorcycleRentMessageBrokerConsumer1.Infrastructure.Services
                                  consumer: consumer);
 
             Console.WriteLine("Press [enter] to exit.");
+            _logger.LogInformation("Consumer started, listen publisher...");
             Console.ReadLine();
         }
     }
