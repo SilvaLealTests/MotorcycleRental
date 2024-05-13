@@ -18,6 +18,7 @@ API feita em .Net 8, sob um estrutura Clean Architecture dividida em 4 camadas: 
 - Documentação com Swagger
 - Containerização com Docker Compose e Docker
 - Banco de Dados Postgres
+
 ## Composição do Projeto
 
 - Postgres - Servidor de Banco de Dados Relacional
@@ -37,11 +38,10 @@ Postgres (localhost:5432)
 
 PGAdmin(http://localhost:8081)
 
-RabbitMQ. Servidor AMQP (localhost:5672) e Dashboard: http://localhost:15672
+RabbitMQ. Servidor AMQP (localhost:5672) e Dashboard(http://localhost:15672)
 
 
-#### Para iniciar o worker e a API, pode ser diretamente no Visual Studio ou utilizado o .Net CLI.
-
+#### **Pode iniciar o Worker e a API diretamente no Visual Studio ou utilizado o .Net CLI
 
 ##### API:
 
@@ -53,9 +53,9 @@ dotnet run --project .\MotorcycleRentMessageBrokerConsumer1\MotorcycleRentMessag
 
 ## Migrations e Seeds
 
-Para facilitar a execução, testes e publicação foi implementado a criação automatica de toda estrutura do banco de dados com uso de Migrations dos Seeds de registros Basicos:
+Para facilitar a execução, testes e publicação foi implementado a criação automatica de toda estrutura do banco de dados com uso de Migrations. Foi utilizado tambem o recurso Seeds, para inserção dos seguintes registros basicos:
 
 Planos de Locação
-Usuários Admin e Biker(Entregador)
-Roles Admin e Biker
-E dois exemplos de Motos
+Usuários: Admin e Biker(Entregador)
+Roles: Admin e Biker
+Dois registros de motos de exemplo
