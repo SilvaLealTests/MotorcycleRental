@@ -6,41 +6,36 @@ using MotorcycleRental.Infrastructure.Seeders;
 
 try
 {
+    var builder = WebApplication.CreateBuilder(args);
+
+    builder.AddPresentation();
+    builder.Services.AddApplication();
+    builder.Services.AddInfrastructure(builder.Configuration);
+
+    var app = builder.Build();
+
+    //Seeder execution
+    var scope = app.Services.CreateScope();
+    var seeder = scope.ServiceProvider.GetRequiredService<IMotorcycleRentalSeeder>();
+    await seeder.Seed();
 
 
-var builder = WebApplication.CreateBuilder(args);
 
-    // Add services to the container.
+    app.UseMiddleware<ErrorHandlingMiddleware>();
 
-builder.AddPresentation();
-builder.Services.AddApplication();
-builder.Services.AddInfrastructure(builder.Configuration);
+    app.UseSwagger();
+    app.UseSwaggerUI();
 
-var app = builder.Build();
+    // Configure the HTTP request pipeline.
 
-//Seeder execution
-var scope = app.Services.CreateScope();
-var seeder = scope.ServiceProvider.GetRequiredService<IMotorcycleRentalSeeder>();
-await seeder.Seed();
-
-app.UseMiddleware<ErrorHandlingMiddleware>();
-
-app.UseSwagger();
-app.UseSwaggerUI();
-
-// Configure the HTTP request pipeline.
-
-app.UseHttpsRedirection();
-
-    //app.MapGroup("api/identity")
-    //.WithTags("Identity")
-    //.MapIdentityApi<User>();
+    app.UseHttpsRedirection();    
 
     app.UseAuthorization();
 
-app.MapControllers();
+    app.MapControllers();
 
-app.Run();
+    app.Run();
+   
 }
 catch (Exception)
 {

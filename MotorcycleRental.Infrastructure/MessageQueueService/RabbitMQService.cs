@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using MotorcycleRental.Application.Interfaces;
+﻿using MotorcycleRental.Application.Interfaces;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System.Text;
@@ -13,9 +12,7 @@ namespace MotorcycleRental.Infrastructure.MessageQueueService
 
         public RabbitMQService(string connectionString)
         {
-           
-
-            var factory = new ConnectionFactory() { Uri = new Uri(connectionString) };
+           var factory = new ConnectionFactory() { Uri = new Uri(connectionString) };
             var connection = factory.CreateConnection();
             this.channel = connection.CreateModel();
             this.channel.QueueDeclare(queue: "fila_moto2024",
@@ -23,7 +20,7 @@ namespace MotorcycleRental.Infrastructure.MessageQueueService
                 exclusive: false,
                 autoDelete: false,
                 arguments: null);
-            // Configurar exchanges, queues, bindings, etc.
+            // configure exchanges, queues, bindings, etc.
         }
 
         public void Publish<T>(T message)

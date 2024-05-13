@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:16
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USERNAME}
@@ -38,20 +38,8 @@ services:
         - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
-        - rabbitmq_motor_rent_net
+      - rabbitmq_motor_rent_net 
     restart: unless-stopped
-  webapi:
-    image: mywebapi
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8000:80"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    volumes:
-      - .:/app
-      - ~/.aspnet/https:/https:ro
 
 networks:
   postgres:

@@ -51,17 +51,17 @@ namespace MotorcycleRentMessageBrokerConsumer1.Infrastructure.Services
                 Console.WriteLine("Received: {0}", message);
                 _logger.LogInformation("Received: {0}", message);
                 // Process the message received here
-                var myObject = JsonConvert.DeserializeObject<Motorcycle2024>(message);
+                var newMotorcycle = JsonConvert.DeserializeObject<Motorcycle2024>(message);
 
-                myObject.CreateDate = DateTime.UtcNow;
+                newMotorcycle.CreateDate = DateTime.UtcNow;
 
-                if (myObject.Year == 2024)
+                if (newMotorcycle.Year == 2024)
                 {
-                    _emailService.Send($"Moto 2024 Cadastrada! {message}");
+                    _emailService.Send($"Motocycle 2024 Inserted! {message}");
                 }
 
                 //Insert into DB
-                await _motorcycle2024Repository.Create(myObject);
+                await _motorcycle2024Repository.Create(newMotorcycle);
 
                 // Message Confimation to RabbitMQ
                 channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);

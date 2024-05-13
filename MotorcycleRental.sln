@@ -20,11 +20,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRental.ApplicationTests", "MotorcycleRental.ApplicationTests\MotorcycleRental.ApplicationTests.csproj", "{9CEB1626-AFB0-4900-93ED-4FE0554587D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorcycleRental.APITests", "MotorcycleRental.APITests\MotorcycleRental.APITests.csproj", "{58ABDD43-B50F-4C12-BDFC-57A6623A0B5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRental.APITests", "MotorcycleRental.APITests\MotorcycleRental.APITests.csproj", "{58ABDD43-B50F-4C12-BDFC-57A6623A0B5C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsumerMessageBroker", "ConsumerMessageBroker", "{4B52CB7E-3895-45B2-B724-5F1FCEB3B99B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MessageBrokerConsumer", "MessageBrokerConsumer", "{4B52CB7E-3895-45B2-B724-5F1FCEB3B99B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorcycleRentMessageBrokerConsumer1", "MotorcycleRentMessageBrokerConsumer1\MotorcycleRentMessageBrokerConsumer1.csproj", "{AEFB4800-CB02-49BF-ABA4-71CCD4726766}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRentMessageBrokerConsumer1", "MotorcycleRentMessageBrokerConsumer1\MotorcycleRentMessageBrokerConsumer1.csproj", "{AEFB4800-CB02-49BF-ABA4-71CCD4726766}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
