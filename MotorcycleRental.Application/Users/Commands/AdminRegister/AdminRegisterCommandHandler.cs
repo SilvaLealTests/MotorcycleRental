@@ -8,9 +8,9 @@ namespace MotorcycleRental.Application.Users.Commands.AdminRegister
     public class AdminRegisterCommandHandler(
         IUsersRepository respository,
         ILogger<AdminRegisterCommandHandler> logger
-        ) : IRequestHandler<AdminRegisterCommand,bool>
+        ) : IRequestHandler<AdminRegisterCommand,string>
     {
-        public async Task<bool> Handle(AdminRegisterCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(AdminRegisterCommand request, CancellationToken cancellationToken)
         {
             logger.LogInformation("Creating a Admin User {@request}", request);
 

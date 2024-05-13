@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using MotorcycleRental.Application.Interfaces;
 using MotorcycleRental.Domain.Entities;
 using MotorcycleRental.Domain.Repositories;
+using MotorcycleRental.Infrastructure.MessageQueueService;
 using MotorcycleRental.Infrastructure.Persistence;
 using MotorcycleRental.Infrastructure.Repositories;
 using MotorcycleRental.Infrastructure.Seeders;
@@ -18,11 +20,9 @@ namespace MotorcycleRental.Infrastructure.Extensions
         {
 
             var connectionString = configuration.GetConnectionString("MotorcycleRentDb");
-            services.AddDbContext<MotorcycleRentalDbContext>(options => options.UseNpgsql(connectionString));
-
-            //services.AddIdentityApiEndpoints<User>()
-            //    .AddRoles<IdentityRole>()
-            //    .AddEntityFrameworkStores<MotorcycleRentalDbContext>();
+            services.AddDbContext<MotorcycleRentalDbContext>(options => 
+            options.UseNpgsql(connectionString).EnableSensitiveDataLogging(), 
+            ServiceLifetime.Scoped);           
 
             services.AddIdentity<User, IdentityRole>(options =>
             {
@@ -31,6 +31,7 @@ namespace MotorcycleRental.Infrastructure.Extensions
                 options.Password.RequireLowercase = true;
                 options.Password.RequireUppercase = true;
                 options.Password.RequireNonAlphanumeric = true;
+                
             }).AddEntityFrameworkStores<MotorcycleRentalDbContext>();
 
             services.AddAuthentication(options =>
@@ -52,6 +53,11 @@ namespace MotorcycleRental.Infrastructure.Extensions
                         System.Text.Encoding.UTF8.GetBytes(configuration["JWT:SigningKey"])
                     )
                 };
+            });
+
+            services.AddSingleton<IMessageQueueService, RabbitMQService>(provider =>
+            {
+                return new RabbitMQService(configuration["ConnectionStrings:RabbitMQ"]);
             });
 
             services.AddScoped<IMotorcycleRentalSeeder, MotorcycleRentalSeeder>();

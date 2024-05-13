@@ -18,5 +18,7 @@ namespace MotorcycleRental.Domain.Entities
 
         [Required]
         public decimal Cost { get; set; }
+
+        public List<Rent> Rents { get; set; } = [];
     }
 }

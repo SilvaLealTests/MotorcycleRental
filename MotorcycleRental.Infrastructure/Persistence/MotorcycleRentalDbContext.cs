@@ -10,7 +10,7 @@ internal class MotorcycleRentalDbContext(DbContextOptions<MotorcycleRentalDbCont
 {   
 
     internal DbSet<Motorcycle> Motorcycles { get; set; }
-    internal DbSet<RentPlan> RentalPlans { get; set;}
+    internal DbSet<RentPlan> RentPlans { get; set;}
 
     internal DbSet<Biker> Bikers { get; set; }
     internal DbSet<Rent> Rents { get; set; }
@@ -27,6 +27,24 @@ internal class MotorcycleRentalDbContext(DbContextOptions<MotorcycleRentalDbCont
             .Property(entity => entity.Status)
             .HasComment("Available Values: A=Active, R=Rented, S=Stopped");
 
+        modelBuilder.Entity<Motorcycle>()
+            .HasMany(m => m.Rents)
+            .WithOne(r => r.Motorcycle)
+            .HasForeignKey(r => r.MotorcycleId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<RentPlan>()
+            .HasMany(m => m.Rents)
+            .WithOne(r => r.RentPlan)
+            .HasForeignKey(r => r.RentPlanId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Biker>()
+         .HasMany(m => m.Rents)
+         .WithOne(r => r.Biker)
+         .HasForeignKey(r => r.BikerId)
+         .OnDelete(DeleteBehavior.Restrict);
+
         modelBuilder.Entity<Biker>()
             .HasIndex(u => u.CNPJ)
             .IsUnique();
@@ -34,6 +52,10 @@ internal class MotorcycleRentalDbContext(DbContextOptions<MotorcycleRentalDbCont
         modelBuilder.Entity<Biker>()
             .HasIndex(u => u.CNH)
             .IsUnique();
+
+        modelBuilder.Entity<Rent>()
+            .HasOne(r => r.Biker);
+            
 
     }
 

@@ -4,7 +4,7 @@ using MotorcycleRental.Domain.Entities;
 
 namespace MotorcycleRental.Application.Users.Commands.AdminRegister
 {
-    public class AdminRegisterCommand : IRequest<bool>
+    public class AdminRegisterCommand : IRequest<string>
     {
         public string Email { get; set; }
 

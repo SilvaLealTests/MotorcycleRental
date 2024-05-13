@@ -33,9 +33,9 @@ namespace MotorcycleRental.Infrastructure.Repositories
 
             var baseQuery = dbContext
                 .Motorcycles
-                .Where(r => searchPhraseLower == null || (r.LicensePlate.ToLower().Contains(searchPhraseLower)
+                .Where(r => (searchPhraseLower == null || (r.LicensePlate.ToLower().Contains(searchPhraseLower)
                                                        || r.Model.ToString().Contains(searchPhraseLower)
-                                                       || r.Year.ToString().Contains(searchPhraseLower))
+                                                       || r.Year.ToString().Contains(searchPhraseLower)))
                                                        
                                                        && r.Status == "A");
 
@@ -140,6 +140,7 @@ namespace MotorcycleRental.Infrastructure.Repositories
                 { nameof(Motorcycle.Model), r => r.Model},
                 { nameof(Motorcycle.Year), r => r.Year},
                 { nameof(Motorcycle.LicensePlate), r => r.LicensePlate },
+                { nameof(Motorcycle.Id), r => r.Id },
             };
 
                 var selectedColumn = columnsSelector[sortBy];
@@ -160,7 +161,6 @@ namespace MotorcycleRental.Infrastructure.Repositories
         public async Task<Motorcycle?> GetByIdAsync(int id)
         {
             var motorcycle = await dbContext.Motorcycles.FirstOrDefaultAsync(x => x.Id == id);
-
             return motorcycle;
         }
 

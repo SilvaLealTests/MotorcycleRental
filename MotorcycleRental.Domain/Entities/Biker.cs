@@ -10,21 +10,29 @@ namespace MotorcycleRental.Domain.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [MaxLength(18)]
+        [Required]
         public string CNPJ { get; set; } = default!;
 
+        [Required]
         public DateOnly DateOfBirth { get; set; }
 
+        [MaxLength(11)]
+        [Required]
         public string CNH { get; set; } = default!;
 
-        public CNHTypes CNHType { get; set; }
+        [MaxLength(2)]
+        [Required]
+        public string CNHType { get; set; }
 
         public string? CHNImg { get; set; }
 
-        public List<Rent> Rents { get; set; } = new();
+        public List<Rent> Rents { get; set; } = [];
 
         public User User { get; set; }
 
         public string UserId { get; set; }
+
 
 
     }

@@ -8,10 +8,10 @@ using MotorcycleRental.Infrastructure.Persistence;
 namespace MotorcycleRental.Infrastructure.Repositories
 {
     internal class UsersRepository(
-        UserManager<User> userManager,        
+        UserManager<User> userManager,
         MotorcycleRentalDbContext dbContext) : IUsersRepository
     {
-        public async Task<bool> InsertAdmin(User entity, string password)
+        public async Task<string> InsertAdmin(User entity, string password)
         {
             using var transaction = await dbContext.Database.BeginTransactionAsync();
 
@@ -22,57 +22,58 @@ namespace MotorcycleRental.Infrastructure.Repositories
                 {
                     throw new Exception("Failed to create user");
                 }
-                
+
                 var addToRoleResult = await userManager.AddToRoleAsync(entity, UserRoles.Admin);
                 if (!addToRoleResult.Succeeded)
                 {
                     throw new Exception($"Failed to assign role: {UserRoles.Admin} to user");
                 }
                 await transaction.CommitAsync();
-                return true;
+                return entity.Id;
             }
             catch (Exception ex)
             {
+                await transaction.RollbackAsync();
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+
+        public async Task<string> InsertBiker(User entity, string password, Biker biker)
+        {
+            using var transaction = await dbContext.Database.BeginTransactionAsync();
+
+            try
+            {
+                var createUserResult = await userManager.CreateAsync(entity, password);
+                if (!createUserResult.Succeeded)
+                {
+                    throw new Exception("Failed to create user");
+                }
+
+                var addToRoleResult = await userManager.AddToRoleAsync(entity, UserRoles.Admin);
+                if (!addToRoleResult.Succeeded)
+                {
+                    throw new Exception($"Failed to assign role: {UserRoles.Admin} to user");
+                }
+
+                biker.User = entity;
+
+                dbContext.Bikers.Add(biker);
+
+                await dbContext.SaveChangesAsync();
+
+                transaction.Commit();
+
+                return entity.Id;
+            }
+            catch (Exception e)
+            {
 
                 await transaction.RollbackAsync();
-                return false;
+                throw new Exception(e.Message);
             }
-
-        }
-    
-
-    public async Task<bool> InsertBiker(User entity, string password,Biker biker)
-    {
-        using var transaction = await dbContext.Database.BeginTransactionAsync();
-
-        try
-        {
-            var createUserResult = await userManager.CreateAsync(entity, password);
-            if (!createUserResult.Succeeded)
-            {
-                throw new Exception("Failed to create user");
-            }
-
-            var addToRoleResult = await userManager.AddToRoleAsync(entity, UserRoles.Admin);
-            if (!addToRoleResult.Succeeded)
-            {
-                throw new Exception($"Failed to assign role: {UserRoles.Admin} to user");
-            }
-
-            biker.User = entity;
-
-            await dbContext.Bikers.AddAsync(biker);
-
-            await transaction.CommitAsync();
-
-            return true;
-        }
-        catch (Exception)
-        {
-
-            await transaction.RollbackAsync();
-            return false;
         }
     }
-}
 }

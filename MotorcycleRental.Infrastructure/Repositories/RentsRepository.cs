@@ -9,16 +9,32 @@ namespace MotorcycleRental.Infrastructure.Repositories
     {
         public async Task<int> Create(Rent entity)
         {
-            dbContext.Rents.Add(entity);
-            return await dbContext.SaveChangesAsync();
+            using var transaction = await dbContext.Database.BeginTransactionAsync();
+
+            try
+            {
+
+                dbContext.Rents.Add(entity);
+                await dbContext.SaveChangesAsync();
+
+                entity.Motorcycle.Status = "R";
+                await dbContext.SaveChangesAsync();
+
+                transaction.Commit();
+                return entity.Id;
+
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<Rent?> GetActiveRentByBiker(int bikerId)
-        {
-            var list = await dbContext.Rents.Where(x => x.Biker.Id == bikerId && x.FinalDate == null)
-                .Include(r => r.RentPlan).ToListAsync();
-
-            return list.FirstOrDefault();
+        {   
+                return await dbContext.Rents.Where(x => x.Biker.Id == bikerId && x.FinalDate == null)
+                    .Include(r => r.RentPlan).FirstOrDefaultAsync();
         }
 
         public async Task<Rent?> GetByIdAndByBikerIdAsync(int rentId, int bikerId)

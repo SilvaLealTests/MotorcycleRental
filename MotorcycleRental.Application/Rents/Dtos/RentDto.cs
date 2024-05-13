@@ -1,7 +1,4 @@
-﻿using MotorcycleRental.Application.Motorcycles.Dtos;
-using MotorcycleRental.Application.RentPlans.Dtos;
-using MotorcycleRental.Application.Users.Dtos;
-using MotorcycleRental.Domain.Entities;
+﻿using MotorcycleRental.Domain.Entities;
 
 namespace MotorcycleRental.Application.Rents.Dtos
 {
@@ -10,19 +7,24 @@ namespace MotorcycleRental.Application.Rents.Dtos
         public int Id { get; set; }
 
 
-        
-        public RentPlanDto RentPlan { get; set; } = new();
+        public RentPlan RentPlan { get; set; } = new();
 
-       
+        public int RentPlanId { get; set; }
 
-        public BikerDto Biker { get; set; } = new();
+        public Biker Biker { get; set; } = new();
 
-        public MotorcycleDto Motorcycle { get; set; } = new();
-        
+        public int BikerId { get; set; }
+
+        public Motorcycle Motorcycle { get; set; } = new();
+
+        public int MotorcycleId { get; set; }
+
         public DateOnly InitialDate { get; set; }
 
-        public DateTime? FinalDate { get; set; }
+        public DateOnly? FinalDate { get; set; }
 
         public DateOnly PreviewDate { get; set; }
+
+        public decimal? Total { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MotorcycleRental.Application.Rents.Dtos;
 using System.Text.Json.Serialization;
 
 namespace MotorcycleRental.Application.Motorcycles.Commands.UpdateMotorcycle
@@ -8,11 +9,9 @@ namespace MotorcycleRental.Application.Motorcycles.Commands.UpdateMotorcycle
         [JsonIgnore]
         public int Id { get; set; }
 
-        //public string Description { get; set; } = default!;
-        //public int Year { get; set; }
-
-        //public int Model { get; set; } = default!;
-
         public string LicensePlate { get; set; } = default!;
+
+
     }
+
 }

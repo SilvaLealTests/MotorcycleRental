@@ -5,8 +5,10 @@ namespace MotorcycleRental.Domain.Repositories
 {
     public interface IUsersRepository
     {
-          Task<bool> InsertBiker(User entity, string password,Biker biker);
+          Task<string> InsertBiker(User entity, string password,Biker biker);
 
-        Task<bool> InsertAdmin(User entity, string password);
+        Task<string> InsertAdmin(User entity, string password);
+
+        
     }
 }

@@ -15,11 +15,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.env = .env
 		docker-compose.yaml = docker-compose.yaml
+		MotorcycleRentMessageBrokerConsumer1\Domain\Entities\Motorcycle2024.cs = MotorcycleRentMessageBrokerConsumer1\Domain\Entities\Motorcycle2024.cs
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorcycleRental.ApplicationTests", "MotorcycleRental.ApplicationTests1\MotorcycleRental.ApplicationTests.csproj", "{EBB5101B-DBBE-4AC4-BCCA-C330D52BF83A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRental.ApplicationTests", "MotorcycleRental.ApplicationTests\MotorcycleRental.ApplicationTests.csproj", "{9CEB1626-AFB0-4900-93ED-4FE0554587D9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{89F1E034-C5E5-4354-B52C-21C4B2EEEC60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRental.APITests", "MotorcycleRental.APITests\MotorcycleRental.APITests.csproj", "{58ABDD43-B50F-4C12-BDFC-57A6623A0B5C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MessageBrokerConsumer", "MessageBrokerConsumer", "{4B52CB7E-3895-45B2-B724-5F1FCEB3B99B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRentMessageBrokerConsumer1", "MotorcycleRentMessageBrokerConsumer1\MotorcycleRentMessageBrokerConsumer1.csproj", "{AEFB4800-CB02-49BF-ABA4-71CCD4726766}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,16 +48,24 @@ Global
 		{5A2247CD-6DEB-4BF5-A0A2-A05AA792E40B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A2247CD-6DEB-4BF5-A0A2-A05AA792E40B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A2247CD-6DEB-4BF5-A0A2-A05AA792E40B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EBB5101B-DBBE-4AC4-BCCA-C330D52BF83A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EBB5101B-DBBE-4AC4-BCCA-C330D52BF83A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EBB5101B-DBBE-4AC4-BCCA-C330D52BF83A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EBB5101B-DBBE-4AC4-BCCA-C330D52BF83A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CEB1626-AFB0-4900-93ED-4FE0554587D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CEB1626-AFB0-4900-93ED-4FE0554587D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CEB1626-AFB0-4900-93ED-4FE0554587D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CEB1626-AFB0-4900-93ED-4FE0554587D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58ABDD43-B50F-4C12-BDFC-57A6623A0B5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58ABDD43-B50F-4C12-BDFC-57A6623A0B5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58ABDD43-B50F-4C12-BDFC-57A6623A0B5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58ABDD43-B50F-4C12-BDFC-57A6623A0B5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEFB4800-CB02-49BF-ABA4-71CCD4726766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEFB4800-CB02-49BF-ABA4-71CCD4726766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEFB4800-CB02-49BF-ABA4-71CCD4726766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEFB4800-CB02-49BF-ABA4-71CCD4726766}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{EBB5101B-DBBE-4AC4-BCCA-C330D52BF83A} = {89F1E034-C5E5-4354-B52C-21C4B2EEEC60}
+		{AEFB4800-CB02-49BF-ABA4-71CCD4726766} = {4B52CB7E-3895-45B2-B724-5F1FCEB3B99B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD413A4E-F725-4865-9AA8-D603A6F48CAB}

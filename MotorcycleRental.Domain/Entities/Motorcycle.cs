@@ -23,4 +23,6 @@ public class Motorcycle
 
     [Required]
     public string Status { get; set; } = default!;
+
+    public List<Rent> Rents { get; set; } = [];
 }
