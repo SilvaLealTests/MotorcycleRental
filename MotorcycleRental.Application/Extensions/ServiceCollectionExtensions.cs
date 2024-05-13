@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Amazon.S3;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using MotorcycleRental.Application.Auth.Services;
@@ -18,6 +19,16 @@ namespace MotorcycleRental.Application.Extensions
 
             services.AddValidatorsFromAssembly(applicationAssembly)
                 .AddFluentValidationAutoValidation();
+
+            // Amazon S3 Configurations
+            services.AddSingleton<IAmazonS3>(sp =>
+            {
+                var clientConfig = new AmazonS3Config
+                {
+                    RegionEndpoint = Amazon.RegionEndpoint.USEast1 // ou a região que você está utilizando
+                };
+                return new AmazonS3Client(clientConfig);
+            });
 
             services.AddScoped<IUserContext,UserContext>();
             services.AddScoped<ITokenService, TokenService>();

@@ -5,12 +5,17 @@ using System.Text;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace MotorcycleRental.Application.Auth.Services
 {
     public interface ITokenService
     {
         Task<string> GenerateToken(User user);
+
+        string GenerateRefreshToken(User user);
+
+        TokenValidationResult validateRefreshToken(string token);
     }
 
     public class TokenService : ITokenService
@@ -51,7 +56,7 @@ namespace MotorcycleRental.Application.Auth.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddHours(Convert.ToDouble(_config["TokenExpirationInMinutes"])),
+                Expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_config["TokenExpirationInMinutes"])),
                 SigningCredentials = creds
             };
 
@@ -60,6 +65,42 @@ namespace MotorcycleRental.Application.Auth.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
+        }
+
+
+        public string GenerateRefreshToken(User user)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key =  Encoding.UTF8.GetBytes(_config["JWT:RefreshTokenKey"]!);            
+            var claimList = new List<Claim>{
+                    new Claim("email",user.Email)
+            };
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+
+                Subject = new ClaimsIdentity(claimList),
+                Expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_config["RefreshTokenExpirationInMinutes"]!)),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
+
+        public TokenValidationResult validateRefreshToken(string token)
+        {
+            var tokenHandler = new JsonWebTokenHandler();
+            var secret = _config["JWT:RefreshTokenKey"];
+            var key = Encoding.ASCII.GetBytes(secret);
+
+            var result = tokenHandler.ValidateToken(token, new TokenValidationParameters()
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            });
+
+            return result;
         }
     }
 }

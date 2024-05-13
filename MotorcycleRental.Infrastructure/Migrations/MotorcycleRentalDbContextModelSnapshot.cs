@@ -167,14 +167,18 @@ namespace MotorcycleRental.Infrastructure.Migrations
 
                     b.Property<string>("CNH")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(11)
+                        .HasColumnType("character varying(11)");
 
-                    b.Property<int>("CNHType")
-                        .HasColumnType("integer");
+                    b.Property<string>("CNHType")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("character varying(2)");
 
                     b.Property<string>("CNPJ")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(18)
+                        .HasColumnType("character varying(18)");
 
                     b.Property<DateOnly>("DateOfBirth")
                         .HasColumnType("date");
@@ -292,7 +296,7 @@ namespace MotorcycleRental.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RentalPlans");
+                    b.ToTable("RentPlans");
                 });
 
             modelBuilder.Entity("MotorcycleRental.Domain.Entities.User", b =>
@@ -426,19 +430,19 @@ namespace MotorcycleRental.Infrastructure.Migrations
                     b.HasOne("MotorcycleRental.Domain.Entities.Biker", "Biker")
                         .WithMany("Rents")
                         .HasForeignKey("BikerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MotorcycleRental.Domain.Entities.Motorcycle", "Motorcycle")
-                        .WithMany()
+                        .WithMany("Rents")
                         .HasForeignKey("MotorcycleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MotorcycleRental.Domain.Entities.RentPlan", "RentPlan")
-                        .WithMany()
+                        .WithMany("Rents")
                         .HasForeignKey("RentPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Biker");
@@ -449,6 +453,16 @@ namespace MotorcycleRental.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("MotorcycleRental.Domain.Entities.Biker", b =>
+                {
+                    b.Navigation("Rents");
+                });
+
+            modelBuilder.Entity("MotorcycleRental.Domain.Entities.Motorcycle", b =>
+                {
+                    b.Navigation("Rents");
+                });
+
+            modelBuilder.Entity("MotorcycleRental.Domain.Entities.RentPlan", b =>
                 {
                     b.Navigation("Rents");
                 });

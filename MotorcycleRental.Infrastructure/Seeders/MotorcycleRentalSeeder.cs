@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using MotorcycleRental.Domain.Constants;
 using MotorcycleRental.Domain.Entities;
 using MotorcycleRental.Infrastructure.Persistence;
@@ -12,6 +13,12 @@ namespace MotorcycleRental.Infrastructure.Seeders
     {
         public async Task Seed()
         {
+            if (dbContext.Database.GetPendingMigrations().Any())
+            {
+                await dbContext.Database.MigrateAsync();
+            }
+
+
             if (await dbContext.Database.CanConnectAsync())
             {
 
@@ -29,10 +36,10 @@ namespace MotorcycleRental.Infrastructure.Seeders
 
                 }
 
-                if (!dbContext.RentalPlans.Any())
+                if (!dbContext.RentPlans.Any())
                 {
                     var rentalPlans = getRentalPlans();
-                    dbContext.RentalPlans.AddRange(rentalPlans);
+                    dbContext.RentPlans.AddRange(rentalPlans);
                     await dbContext.SaveChangesAsync();
                 }
 
@@ -41,9 +48,7 @@ namespace MotorcycleRental.Infrastructure.Seeders
                     var motorcycles = getMotorcycles();
                     dbContext.Motorcycles.AddRange(motorcycles);
                     await dbContext.SaveChangesAsync();
-                }
-
-
+                }                
             }
         }
 
@@ -58,6 +63,7 @@ namespace MotorcycleRental.Infrastructure.Seeders
                 userAdmin.UserName = "admin@test.com";
                 userAdmin.NormalizedUserName = "admin@test.com".ToUpper();
                 userAdmin.NormalizedEmail = "admin@test.com".ToUpper();
+                userAdmin.LockoutEnabled = false;
 
                 var resultUser = await userManager.CreateAsync(userAdmin, "Password!1");
 
@@ -77,8 +83,9 @@ namespace MotorcycleRental.Infrastructure.Seeders
                     Email = "biker@test.com",
                     UserName = "biker@test.com",
                     NormalizedUserName = "biker@test.com".ToUpper(),
-                    NormalizedEmail = "biker@test.com".ToUpper()
-                };
+                    NormalizedEmail = "biker@test.com".ToUpper(),
+                    LockoutEnabled = false
+            };
 
                 resultUser = await userManager.CreateAsync(userBiker, "Password!1");
 
@@ -98,12 +105,14 @@ namespace MotorcycleRental.Infrastructure.Seeders
                     CNH = "99999999999",
                     CNPJ = "98.435.634/0001-71",
                     DateOfBirth = new DateOnly(1982, 1, 16),
-                    User = userBiker
+                    User = userBiker,
+                    CNHType = "AB"
                 };
 
                 dbContext.Bikers.Add(biker);
+                await dbContext.SaveChangesAsync();
 
-                await transaction.CommitAsync();
+                transaction.Commit();               
 
             }
             catch (Exception)

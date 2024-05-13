@@ -7,12 +7,14 @@ namespace MotorcycleRental.Application.Rents.Commands.CreateRent
         public CreateRentCommandValidator()
         {
             RuleFor(dto => dto.MotorcycleId)
-                .NotEmpty();
+                .NotEmpty()
+                .GreaterThan(0);
 
            
 
             RuleFor(dto => dto.RentPlanId)
-                .NotEmpty();
+                .NotEmpty()
+                .GreaterThan(0);
         }
     }
 }

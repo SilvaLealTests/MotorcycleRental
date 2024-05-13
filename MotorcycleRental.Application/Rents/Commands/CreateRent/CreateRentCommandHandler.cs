@@ -28,7 +28,9 @@ namespace MotorcycleRental.Application.Rents.Commands.CreateRent
             currentUser.Id,
             request);
 
-            //verify if exists RentPla
+            
+
+            //verify if exists RentPlan
             var rentPlan = await rentPlansRepository.GetByIdAsync(request.RentPlanId);
             if (rentPlan is null)
                 throw new NotFoundException(nameof(RentPlan), request.RentPlanId.ToString());
@@ -43,6 +45,12 @@ namespace MotorcycleRental.Application.Rents.Commands.CreateRent
             if(motorCycle is null)
                 throw new NotFoundException(nameof(Motorcycle), request.MotorcycleId.ToString());
 
+            //verify if exist Active Rent to Biker
+            var gotenRent = await rentsRepository.GetActiveRentByBiker(biker.Id);
+
+            if (gotenRent != null)
+                throw new BadRequestException($"There is already rent");
+
             var rent = mapper.Map<Rent>(request);
 
             rent.RentPlan = rentPlan;
@@ -50,7 +58,7 @@ namespace MotorcycleRental.Application.Rents.Commands.CreateRent
             rent.Motorcycle = motorCycle;
 
             //add preview and initial date
-            rent.InitialDate = DateOnly.FromDateTime(DateTime.Now);
+            rent.InitialDate = DateOnly.FromDateTime(DateTime.Now).AddDays(1);
             rent.PreviewDate = rent.InitialDate.AddDays(rentPlan.Days + 1);
  
             var result = await rentsRepository.Create(rent);
