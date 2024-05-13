@@ -3,69 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRental.Domain", "MotorcycleRental.Domain\MotorcycleRental.Domain.csproj", "{1CEC0E69-A7AC-4D32-92E7-37699F21CB5A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRental.Application", "MotorcycleRental.Application\MotorcycleRental.Application.csproj", "{261A1292-AB1B-4B70-9308-105CD16EB72F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRental.API", "MotorcycleRental.API\MotorcycleRental.API.csproj", "{F0F46C0F-D011-4E67-B717-274083D8266B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRental.Infrastructure", "MotorcycleRental.Infrastructure\MotorcycleRental.Infrastructure.csproj", "{5A2247CD-6DEB-4BF5-A0A2-A05AA792E40B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{16951B5C-E291-40DF-B9D6-842D8788E5D7}"
-	ProjectSection(SolutionItems) = preProject
-		.env = .env
-		docker-compose.yaml = docker-compose.yaml
-		MotorcycleRentMessageBrokerConsumer1\Domain\Entities\Motorcycle2024.cs = MotorcycleRentMessageBrokerConsumer1\Domain\Entities\Motorcycle2024.cs
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRental.ApplicationTests", "MotorcycleRental.ApplicationTests\MotorcycleRental.ApplicationTests.csproj", "{9CEB1626-AFB0-4900-93ED-4FE0554587D9}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRental.APITests", "MotorcycleRental.APITests\MotorcycleRental.APITests.csproj", "{58ABDD43-B50F-4C12-BDFC-57A6623A0B5C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MessageBrokerConsumer", "MessageBrokerConsumer", "{4B52CB7E-3895-45B2-B724-5F1FCEB3B99B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRentMessageBrokerConsumer1", "MotorcycleRentMessageBrokerConsumer1\MotorcycleRentMessageBrokerConsumer1.csproj", "{AEFB4800-CB02-49BF-ABA4-71CCD4726766}"
-EndProject
 Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1CEC0E69-A7AC-4D32-92E7-37699F21CB5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1CEC0E69-A7AC-4D32-92E7-37699F21CB5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1CEC0E69-A7AC-4D32-92E7-37699F21CB5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1CEC0E69-A7AC-4D32-92E7-37699F21CB5A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{261A1292-AB1B-4B70-9308-105CD16EB72F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{261A1292-AB1B-4B70-9308-105CD16EB72F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{261A1292-AB1B-4B70-9308-105CD16EB72F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{261A1292-AB1B-4B70-9308-105CD16EB72F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F0F46C0F-D011-4E67-B717-274083D8266B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F0F46C0F-D011-4E67-B717-274083D8266B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F0F46C0F-D011-4E67-B717-274083D8266B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F0F46C0F-D011-4E67-B717-274083D8266B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5A2247CD-6DEB-4BF5-A0A2-A05AA792E40B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A2247CD-6DEB-4BF5-A0A2-A05AA792E40B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A2247CD-6DEB-4BF5-A0A2-A05AA792E40B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A2247CD-6DEB-4BF5-A0A2-A05AA792E40B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9CEB1626-AFB0-4900-93ED-4FE0554587D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9CEB1626-AFB0-4900-93ED-4FE0554587D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9CEB1626-AFB0-4900-93ED-4FE0554587D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9CEB1626-AFB0-4900-93ED-4FE0554587D9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{58ABDD43-B50F-4C12-BDFC-57A6623A0B5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{58ABDD43-B50F-4C12-BDFC-57A6623A0B5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{58ABDD43-B50F-4C12-BDFC-57A6623A0B5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{58ABDD43-B50F-4C12-BDFC-57A6623A0B5C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AEFB4800-CB02-49BF-ABA4-71CCD4726766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AEFB4800-CB02-49BF-ABA4-71CCD4726766}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AEFB4800-CB02-49BF-ABA4-71CCD4726766}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AEFB4800-CB02-49BF-ABA4-71CCD4726766}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{AEFB4800-CB02-49BF-ABA4-71CCD4726766} = {4B52CB7E-3895-45B2-B724-5F1FCEB3B99B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD413A4E-F725-4865-9AA8-D603A6F48CAB}
