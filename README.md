@@ -10,29 +10,29 @@ API feita em .Net 8, sob um estrutura Clean Architecture dividida em 4 camadas: 
 
 - ORM com EntityFramework
 - CQRS com MediatR
-- SeguranÁa(AutenticaÁ„o e AutorizaÁ„o) com ApsNetCore Identity e JWT
+- Seguran√ßa(Autentica√ß√£o e Autoriza√ß√£o) com ApsNetCore Identity e JWT
 - Testes com Xunit
 - Logs(Console e arquivo) com Serilog
-- ManipulaÁ„o de imagens com AWS S3
+- Manipula√ß√£o de imagens com AWS S3
 - Message Broker com RabbitMQ
-- DocumentaÁ„o com Swagger
-- ContainerizaÁ„o com Docker Compose e Docker
+- Documenta√ß√£o com Swagger
+- Containeriza√ß√£o com Docker Compose e Docker
 - Banco de Dados Postgres
 
-## ComposiÁ„o do Projeto
+## Composi√ß√£o do Projeto
 
 - Postgres - Servidor de Banco de Dados Relacional
 - PGAdmin - SGBD para gerenciamento do Postgres
 - RabbitMQ - Message Broker
 - Worker - RabbitMQ Consumer
-- API LocaÁ„o de Motos
-## ExecuÁ„o
+- API Loca√ß√£o de Motos
+## Execu√ß√£o
 
 #### Com Docker instalado, executar no prompt de comando na raiz do projeto:
 
 docker-compose up
 
-#### Estes comando inicializar· 3 serviÁos:
+#### Estes comando inicializar√° 3 servi√ßos:
 
 Postgres (localhost:5432)
 
@@ -45,17 +45,19 @@ RabbitMQ. Servidor AMQP (localhost:5672) e Dashboard(http://localhost:15672)
 
 ##### API:
 
-dotnet run --project .\MotorcycleRental.API\MotorcycleRental.API.csproj
+ dotnet run --project .\src\MotorcycleRental.API\MotorcycleRental.API.csproj --urls="https://localhost:5001;http://localhost:5000"
+
+ *pode abrir o endere√ßo https://localhost:5001 em um browser
 
 ##### Worker(RabbitMQ Consumer):
 
-dotnet run --project .\MotorcycleRentMessageBrokerConsumer1\MotorcycleRentMessageBrokerConsumer1.csproj
+dotnet run --project .\src\MotorcycleRentMessageBrokerConsumer1\
 
 ## Migrations e Seeds
 
-Para facilitar a execuÁ„o, testes e publicaÁ„o foi implementado a criaÁ„o automatica de toda estrutura do banco de dados com uso de Migrations. Foi utilizado tambem o recurso Seeds, para inserÁ„o dos seguintes registros basicos:
+Para facilitar a execu√ß√£o, testes e publica√ß√£o foi implementado a cria√ß√£o automatica de toda estrutura do banco de dados com uso de Migrations. Foi utilizado tambem o recurso Seeds, para inser√ß√£o dos seguintes registros basicos:
 
-Planos de LocaÁ„o
-Usu·rios: Admin e Biker(Entregador)
+Planos de Loca√ß√£o
+Usu√°rios: Admin e Biker(Entregador)
 Roles: Admin e Biker
 Dois registros de motos de exemplo
