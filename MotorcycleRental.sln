@@ -15,7 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.env = .env
 		docker-compose.yaml = docker-compose.yaml
-		MotorcycleRentMessageBrokerConsumer1\Domain\Entities\Motorcycle2024.cs = MotorcycleRentMessageBrokerConsumer1\Domain\Entities\Motorcycle2024.cs
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRental.ApplicationTests", "MotorcycleRental.ApplicationTests\MotorcycleRental.ApplicationTests.csproj", "{9CEB1626-AFB0-4900-93ED-4FE0554587D9}"
