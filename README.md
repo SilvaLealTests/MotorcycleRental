@@ -32,14 +32,11 @@ API feita em .Net 8, sob um estrutura Clean Architecture dividida em 4 camadas: 
 
 docker-compose up
 
-#### Estes comando inicializará 3 serviços:
+#### Este comando inicializará 3 serviços:
 
-Postgres (localhost:5432)
-
-PGAdmin(http://localhost:8081)
-
-RabbitMQ. Servidor AMQP (localhost:5672) e Dashboard(http://localhost:15672)
-
+- Postgres (localhost:5432)
+- PGAdmin(http://localhost:8081)
+- RabbitMQ. Servidor AMQP (localhost:5672) e Dashboard(http://localhost:15672)
 
 #### **Pode iniciar o Worker e a API diretamente no Visual Studio ou utilizado o .Net CLI
 
@@ -47,7 +44,7 @@ RabbitMQ. Servidor AMQP (localhost:5672) e Dashboard(http://localhost:15672)
 
  dotnet run --project .\src\MotorcycleRental.API\MotorcycleRental.API.csproj --urls="https://localhost:5001;http://localhost:5000"
 
- *pode abrir o endereço https://localhost:5001 em um browser
+ *A API estará dispinível através da URL https://localhost:5001/swagger e poderá ser acessada pelo browser de sua preferencia.
 
 ##### Worker(RabbitMQ Consumer):
 
