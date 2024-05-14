@@ -17,7 +17,7 @@ namespace MotorcycleRental.Application.RentPlans.Commands.DeleteRentPlan.Tests
         {
             _repositoryMock = new Mock<IRentPlansRepository>();
             _loggerMock = new Mock<ILogger<DeleteRentalPlanCommandHandler>>();
-            _handler = new DeleteRentalPlanCommandHandler(_repositoryMock.Object, _loggerMock.Object, null); // Mapper is not used in this scenario
+            _handler = new DeleteRentalPlanCommandHandler(_repositoryMock.Object, _loggerMock.Object); // Mapper is not used in this scenario
         }
 
         [Fact]

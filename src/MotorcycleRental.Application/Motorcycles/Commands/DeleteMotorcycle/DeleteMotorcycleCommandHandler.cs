@@ -16,12 +16,12 @@ namespace MotorcycleRental.Application.Motorcycles.Commands.DeleteMotorcycle
         {
             logger.LogInformation("Removing Motorcycle with id: {MotorcycleId}", request.Id);
 
-            var motorcycles = await repository.GetByIdAsync(request.Id);
+            var motorcycle = await repository.GetByIdAsync(request.Id);
 
-            if (motorcycles is null)
-                throw new NotFoundException(nameof(Motorcycle), request.Id.ToString());
+            if (motorcycle is null)                
+            throw new NotFoundException(nameof(RentPlan), request.Id.ToString());
 
-            await repository.Delete(motorcycles);
+            await repository.Delete(motorcycle);
 
 
         }
