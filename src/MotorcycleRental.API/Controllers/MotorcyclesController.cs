@@ -70,9 +70,11 @@ namespace MotorcycleRental.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Authorize(Roles = UserRoles.Admin)]
-        public async void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             await mediator.Send(new DeleteMotorcycleCommand(id));
+
+            return NoContent();
         }
 
         [HttpGet("getActives")]

@@ -21,8 +21,7 @@ namespace MotorcycleRental.Infrastructure.Extensions
 
             var connectionString = configuration.GetConnectionString("MotorcycleRentDb");
             services.AddDbContext<MotorcycleRentalDbContext>(options => 
-            options.UseNpgsql(connectionString).EnableSensitiveDataLogging(), 
-            ServiceLifetime.Scoped);           
+            options.UseNpgsql(connectionString).EnableSensitiveDataLogging());           
 
             services.AddIdentity<User, IdentityRole>(options =>
             {

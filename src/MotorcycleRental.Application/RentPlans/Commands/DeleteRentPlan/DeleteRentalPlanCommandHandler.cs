@@ -9,8 +9,7 @@ namespace MotorcycleRental.Application.RentPlans.Commands.DeleteRentPlan
 {
     public class DeleteRentalPlanCommandHandler(
         IRentPlansRepository repository,
-        ILogger<DeleteRentalPlanCommandHandler> logger,
-        IMapper mapper
+        ILogger<DeleteRentalPlanCommandHandler> logger
         ) : IRequestHandler<DeleteRentalPlanCommand>
     {
         public async Task Handle(DeleteRentalPlanCommand request, CancellationToken cancellationToken)
