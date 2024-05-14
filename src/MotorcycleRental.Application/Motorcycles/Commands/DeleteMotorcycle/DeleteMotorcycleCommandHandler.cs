@@ -19,7 +19,7 @@ namespace MotorcycleRental.Application.Motorcycles.Commands.DeleteMotorcycle
             var motorcycle = await repository.GetByIdAsync(request.Id);
 
             if (motorcycle is null)                
-            throw new NotFoundException(nameof(RentPlan), request.Id.ToString());
+            throw new NotFoundException(nameof(Motorcycle), request.Id.ToString());
 
             await repository.Delete(motorcycle);
 
