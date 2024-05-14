@@ -160,8 +160,8 @@ namespace MotorcycleRental.Infrastructure.Repositories
 
         public async Task<Motorcycle?> GetByIdAsync(int id)
         {
-            var motorcycle = await dbContext.Motorcycles.FirstOrDefaultAsync(x => x.Id == id);
-            return motorcycle;
+            var motor = await dbContext.Motorcycles.FirstOrDefaultAsync(x => x.Id == id);
+            return motor;
         }
 
         public Task SaveChanges() => dbContext.SaveChangesAsync();
